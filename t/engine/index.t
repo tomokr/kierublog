@@ -1,4 +1,4 @@
-package t::Hatena::Newbie::Engine::Index;
+package t::Intern::Bookmark::Engine::Index;
 
 use strict;
 use warnings;
@@ -7,14 +7,14 @@ use lib 't/lib';
 
 use parent 'Test::Class';
 
-use Test::Hatena::Newbie;
-use Test::Hatena::Newbie::Mechanize;
+use Test::Intern::Bookmark;
+use Test::Intern::Bookmark::Mechanize;
 
 sub _get : Test(3) {
     my $mech = create_mech;
     $mech->get_ok('/');
-    $mech->title_is('Hatena::Newbie');
-    $mech->content_contains('Hatena-Newbie');
+    $mech->title_is('Intern::Bookmark');
+    $mech->content_contains('Intern-Bookmark');
 }
 
 __PACKAGE__->runtests;

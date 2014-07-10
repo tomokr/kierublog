@@ -1,4 +1,4 @@
-package t::Hatena::Newbie::DBI::Factory;
+package t::Intern::Bookmark::DBI::Factory;
 
 use strict;
 use warnings;
@@ -9,12 +9,12 @@ use parent 'Test::Class';
 
 use Test::More;
 
-use Test::Hatena::Newbie;
+use Test::Intern::Bookmark;
 
-use Hatena::Newbie::Util;
+use Intern::Bookmark::Util;
 
 sub _use : Test(1) {
-    use_ok 'Hatena::Newbie::Util';
+    use_ok 'Intern::Bookmark::Util';
 }
 
 __PACKAGE__->runtests;

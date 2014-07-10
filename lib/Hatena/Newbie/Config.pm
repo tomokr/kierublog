@@ -1,15 +1,15 @@
-package Hatena::Newbie::Config;
+package Intern::Bookmark::Config;
 
 use strict;
 use warnings;
 use utf8;
 
-use Hatena::Newbie::Config::Route;
+use Intern::Bookmark::Config::Route;
 
-use Config::ENV 'HATENA_NEWBIE_ENV', export => 'config';
+use Config::ENV 'INTERN_BOOKMARK_ENV', export => 'config';
 use Path::Class qw(file);
 
-my $Router = Hatena::Newbie::Config::Route->make_router;
+my $Router = Intern::Bookmark::Config::Route->make_router;
 my $Root = file(__FILE__)->dir->parent->parent->parent->absolute;
 
 sub router { $Router }
@@ -29,10 +29,10 @@ config production => {
 config local => {
     parent('default'),
     db => {
-        hatena_newbie => {
-            user     => 'hatena_newbie',
-            password => 'hatena_newbie',
-            dsn      => 'dbi:mysql:dbname=hatena_newbie;host=localhost',
+        intern_bookmark => {
+            user     => 'intern_bookmark',
+            password => 'intern_bookmark',
+            dsn      => 'dbi:mysql:dbname=intern_bookmark;host=localhost',
         },
     },
     db_timezone => 'UTC',
@@ -42,10 +42,10 @@ config test => {
     parent('default'),
 
     db => {
-        hatena_newbie => {
-            user     => 'hatena_newbie',
-            password => 'hatena_newbie',
-            dsn      => 'dbi:mysql:dbname=hatena_newbie_test;host=localhost',
+        intern_bookmark => {
+            user     => 'intern_bookmark',
+            password => 'intern_bookmark',
+            dsn      => 'dbi:mysql:dbname=intern_bookmark_test;host=localhost',
         },
     },
     db_timezone => 'UTC',

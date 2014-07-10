@@ -1,4 +1,4 @@
-package Hatena::Newbie::Engine::User;
+package Intern::Bookmark::Engine::User;
 
 use strict;
 use warnings;
@@ -6,15 +6,15 @@ use utf8;
 
 use FormValidator::Lite;
 
-use Hatena::Newbie::Util;
+use Intern::Bookmark::Util;
 
 sub list {
     my ($class, $c) = @_;
 
-    my $users = $c->dbh('hatena_newbie')->select_all_as(q[
+    my $users = $c->dbh('intern_bookmark')->select_all_as(q[
         SELECT * FROM user
           ORDER BY created desc
-    ], "Hatena::Newbie::Model::User");
+    ], "Intern::Bookmark::Model::User");
 
     $c->html('user/list.html', {
         users => $users,
@@ -33,12 +33,12 @@ sub register {
         return $c->redirect('/user/list');
     }
 
-    $c->dbh('hatena_newbie')->query(q[
+    $c->dbh('intern_bookmark')->query(q[
         INSERT INTO user (name, created)
           VALUES(:name, :created)
     ], {
         name    => $c->req->parameters->{name},
-        created => Hatena::Newbie::Util::now,
+        created => Intern::Bookmark::Util::now,
     });
 
     $c->redirect('/user/list');

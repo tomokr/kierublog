@@ -1,10 +1,10 @@
-package Hatena::Newbie::View::Xslate;
+package Intern::Bookmark::View::Xslate;
 
 use strict;
 use warnings;
 use utf8;
 
-use Hatena::Newbie::Config;
+use Intern::Bookmark::Config;
 
 use Text::Xslate qw(mark_raw html_escape);
 
