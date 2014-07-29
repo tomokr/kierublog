@@ -14,7 +14,7 @@ $runner->parse_options(
     @ARGV,
 );
 
-$ENV{HATENA_NEWBIE_ENV} = $runner->{env} || 'local'; # -E は HATENA_NEWBIE_ENV に伝播
+$ENV{INTERN_DIARY_ENV} = $runner->{env} || 'local'; # -E は INTERN_DIARY_ENV に伝播
 $runner->{env} = 'development';
 
 my $options = +{ @{ $runner->{options} } };

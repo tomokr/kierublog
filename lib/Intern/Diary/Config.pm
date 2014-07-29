@@ -6,7 +6,7 @@ use utf8;
 
 use Intern::Diary::Config::Route;
 
-use Config::ENV 'HATENA_NEWBIE_ENV', export => 'config';
+use Config::ENV 'INTERN_DIARY_ENV', export => 'config';
 use Path::Class qw(file);
 
 my $Router = Intern::Diary::Config::Route->make_router;

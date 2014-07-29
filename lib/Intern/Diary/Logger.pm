@@ -6,7 +6,7 @@ use utf8;
 
 use parent qw(Log::Minimal);
 
-our $ENV_DEBUG = 'HATENA_NEWBIE_DEBUG';
+our $ENV_DEBUG = 'INTERN_DIARY_DEBUG';
 our $HANDLE = \*STDERR;
 our $PRINT = sub {
     my ($time, $level, $mess, $trace) = @_;

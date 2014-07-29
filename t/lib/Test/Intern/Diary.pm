@@ -14,7 +14,7 @@ use DateTime;
 use DateTime::Format::MySQL;
 
 BEGIN {
-    $ENV{HATENA_NEWBIE_ENV} = 'test';
+    $ENV{INTERN_DIARY_ENV} = 'test';
     $ENV{PLACK_ENV} = 'test';
     $ENV{DBI_REWRITE_DSN} ||= 1;
 }
