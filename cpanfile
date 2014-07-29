@@ -19,6 +19,7 @@ requires 'Try::Tiny';
 requires 'URI';
 requires 'URI::QueryParam';
 requires 'FormValidator::Lite';
+requires 'Log::Minimal';
 
 requires 'DateTime';
 requires 'DateTime::Format::MySQL';

@@ -1,6 +1,6 @@
 #!/bin/sh
 
-dbname=${1:-intern_diary}
+dbname=${1:-intern_diary_$USER}
 USE_CARTON=${USE_CARTON:-0}
 
 if [ $USE_CARTON == 1 ]; then
@@ -11,7 +11,7 @@ else
   PERL_AUTOINSTALL=--defaultdeps LANG=C cpanm --installdeps --notest . < /dev/null
 fi
 
-if [[ $(mysql -N -uroot -e "SELECT 1 FROM mysql.user WHERE user = 'nobody'") -ne "1" ]]; then
+if [[ $(mysql -N -uroot -e "SELECT count(*) FROM mysql.user WHERE user = 'nobodyy'") -lt "1" ]]; then
   mysql -uroot -e "GRANT ALL PRIVILEGES ON *.* TO 'nobody'@'localhost' IDENTIFIED BY 'nobody' WITH GRANT OPTION"
   echo "User nobody@localhost (nobody) created"
 fi
