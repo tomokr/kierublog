@@ -38,7 +38,7 @@ sub register {
           VALUES(:name, :created)
     ], {
         name    => $c->req->parameters->{name},
-        created => Hatena::Newbie::Util::now,
+        created => Intern::Diary::Util::now,
     });
 
     $c->redirect('/user/list');

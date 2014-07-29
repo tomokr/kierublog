@@ -1,4 +1,4 @@
-package Test::Hatena::Newbie;
+package Test::Intern::Diary;
 
 use strict;
 use warnings;

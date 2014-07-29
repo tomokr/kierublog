@@ -1,4 +1,4 @@
-package Test::Hatena::Newbie::Mechanize;
+package Test::Intern::Diary::Mechanize;
 
 use strict;
 use warnings;

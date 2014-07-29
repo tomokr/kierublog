@@ -17,7 +17,7 @@ use Intern::Diary::Util;
 sub created {
     my ($self) = @_;
     $self->{_created} ||= eval {
-        Hatena::Newbie::Util::datetime_from_db($self->{created});
+        Intern::Diary::Util::datetime_from_db($self->{created});
     };
 }
 

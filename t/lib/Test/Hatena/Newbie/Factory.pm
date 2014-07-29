@@ -1,4 +1,4 @@
-package Test::Hatena::Newbie::Factory;
+package Test::Intern::Diary::Factory;
 
 use strict;
 use warnings;
@@ -13,13 +13,13 @@ use String::Random qw(random_regex);
 
 use Intern::Diary::Util;
 use Intern::Diary::DBI::Factory;
-use Hatena::Newbie::Util::now;
+use Intern::Diary::Util::now;
 
 # ランダムなユーザを作成する
 sub create_user (%) {
     my (%args) = @_;
     my $name    = $args{name} // random_regex('\w{30}');
-    my $created = $args{created} // Hatena::Newbie::Util::now;
+    my $created = $args{created} // Intern::Diary::Util::now;
 
     my $dbh = Intern::Diary::DBI::Factory->new->dbh('hatena_newbie');
 

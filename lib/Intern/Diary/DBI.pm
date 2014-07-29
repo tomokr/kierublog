@@ -19,7 +19,7 @@ sub _expand_args (@) {
     return ($query, @args);
 }
 
-package Hatena::Newbie::DBI::db;
+package Intern::Diary::DBI::db;
 
 use strict;
 use warnings;
@@ -30,17 +30,17 @@ use Class::Load qw(load_class);
 
 sub select_one {
     my $self = shift;
-    return $self->SUPER::select_one(Hatena::Newbie::DBI::_expand_args(@_));
+    return $self->SUPER::select_one(Intern::Diary::DBI::_expand_args(@_));
 }
 
 sub select_row {
     my $self = shift;
-    return $self->SUPER::select_row(Hatena::Newbie::DBI::_expand_args(@_));
+    return $self->SUPER::select_row(Intern::Diary::DBI::_expand_args(@_));
 }
 
 sub select_all {
     my $self = shift;
-    return $self->SUPER::select_all(Hatena::Newbie::DBI::_expand_args(@_));
+    return $self->SUPER::select_all(Intern::Diary::DBI::_expand_args(@_));
 }
 
 sub select_row_as {
@@ -61,10 +61,10 @@ sub select_all_as {
 
 sub query {
     my $self = shift;
-    return $self->SUPER::query(Hatena::Newbie::DBI::_expand_args(@_));
+    return $self->SUPER::query(Intern::Diary::DBI::_expand_args(@_));
 }
 
-package Hatena::Newbie::DBI::st;
+package Intern::Diary::DBI::st;
 use parent -norequire => 'DBIx::Sunny::st';
 
 1;
