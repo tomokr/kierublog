@@ -1,23 +1,31 @@
 #!/bin/sh
 
-echo "Installing dependencies with cpanminus"
-PERL_AUTOINSTALL=--defaultdeps LANG=C cpanm --installdeps --notest . < /dev/null
+dbname=${1:-intern_diary}
+USE_CARTON=${USE_CARTON:-0}
 
-if [[ $(mysql -N -uroot -e "SELECT 1 FROM mysql.user WHERE user = 'hatena_newbie'") -ne "1" ]]; then
-  mysql -uroot -e "GRANT ALL PRIVILEGES ON *.* TO 'hatena_newbie'@'localhost' IDENTIFIED BY 'hatena_newbie' WITH GRANT OPTION"
-  echo "User hatena_newbie@localhost (hatena_newbie) created"
+if [ $USE_CARTON == 1 ]; then
+  echo "Installing dependencies with Carton"
+  carton install
+else
+  echo "Installing dependencies with cpanminus"
+  PERL_AUTOINSTALL=--defaultdeps LANG=C cpanm --installdeps --notest . < /dev/null
 fi
 
-mysqladmin -uroot drop hatena_newbie -f > /dev/null 2>&1
-mysqladmin -uroot create hatena_newbie
-echo "Database \"hatena_newbie\" created"
-echo "Initializing \"hatena_newbie\""
-mysql -uroot hatena_newbie < db/schema.sql
+if [[ $(mysql -N -uroot -e "SELECT 1 FROM mysql.user WHERE user = 'nobody'") -ne "1" ]]; then
+  mysql -uroot -e "GRANT ALL PRIVILEGES ON *.* TO 'nobody'@'localhost' IDENTIFIED BY 'nobody' WITH GRANT OPTION"
+  echo "User nobody@localhost (nobody) created"
+fi
 
-mysqladmin -uroot drop hatena_newbie_test -f > /dev/null 2>&1
-mysqladmin -uroot create hatena_newbie_test
-echo "Database \"hatena_newbie_test\" created"
-echo "Initializing \"hatena_newbie_test\""
-mysql -uroot hatena_newbie_test < db/schema.sql
+mysqladmin -uroot drop $dbname -f > /dev/null 2>&1
+mysqladmin -uroot create $dbname
+echo "Database \"${dbname}\" created"
+echo "Initializing \"$dbname\""
+mysql -uroot $dbname < db/schema.sql
+
+mysqladmin -uroot drop ${dbname}_test -f > /dev/null 2>&1
+mysqladmin -uroot create ${dbname}_test
+echo "Database \"${dbname}_test\" created"
+echo "Initializing \"${dbname}_test\""
+mysql -uroot ${dbname}_test < db/schema.sql
 
 echo "Done."

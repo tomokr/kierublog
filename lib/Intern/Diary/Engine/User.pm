@@ -11,7 +11,7 @@ use Intern::Diary::Util;
 sub list {
     my ($class, $c) = @_;
 
-    my $users = $c->dbh('hatena_newbie')->select_all_as(q[
+    my $users = $c->dbh('intern_diary')->select_all_as(q[
         SELECT * FROM user
           ORDER BY created desc
     ], 'Intern::Diary::Model::User');
@@ -33,7 +33,7 @@ sub register {
         return $c->redirect('/user/list');
     }
 
-    $c->dbh('hatena_newbie')->query(q[
+    $c->dbh('intern_diary')->query(q[
         INSERT INTO user (name, created)
           VALUES(:name, :created)
     ], {

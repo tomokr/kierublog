@@ -21,7 +21,7 @@ sub create_user (%) {
     my $name    = $args{name} // random_regex('\w{30}');
     my $created = $args{created} // Intern::Diary::Util::now;
 
-    my $dbh = Intern::Diary::DBI::Factory->new->dbh('hatena_newbie');
+    my $dbh = Intern::Diary::DBI::Factory->new->dbh('intern_diary');
 
     $dbh->query(q[
         INSERT INTO user

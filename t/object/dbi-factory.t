@@ -19,15 +19,15 @@ sub _use : Test(1) {
 
 sub _dbconfig : Test(3) {
     my $dbfactory = Intern::Diary::DBI::Factory->new;
-    my $db_config = $dbfactory->dbconfig('hatena_newbie');
-    is $db_config->{user}, 'hatena_newbie';
-    is $db_config->{password}, 'hatena_newbie';
-    is $db_config->{dsn}, 'dbi:mysql:dbname=hatena_newbie_test;host=localhost';
+    my $db_config = $dbfactory->dbconfig('intern_diary');
+    is $db_config->{user}, 'intern_diary';
+    is $db_config->{password}, 'intern_diary';
+    is $db_config->{dsn}, 'dbi:mysql:dbname=intern_diary_test;host=localhost';
 }
 
 sub _dbh : Test(1) {
     my $dbfactory = Intern::Diary::DBI::Factory->new;
-    my $dbh = $dbfactory->dbh('hatena_newbie');
+    my $dbh = $dbfactory->dbh('intern_diary');
     ok $dbh;
 
 }

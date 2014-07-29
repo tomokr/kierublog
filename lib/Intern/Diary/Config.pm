@@ -29,10 +29,10 @@ config production => {
 config local => {
     parent('default'),
     db => {
-        hatena_newbie => {
-            user     => 'hatena_newbie',
-            password => 'hatena_newbie',
-            dsn      => 'dbi:mysql:dbname=hatena_newbie;host=localhost',
+        intern_diary => {
+            user     => 'intern_diary',
+            password => 'intern_diary',
+            dsn      => 'dbi:mysql:dbname=intern_diary;host=localhost',
         },
     },
     db_timezone => 'UTC',
@@ -42,10 +42,10 @@ config test => {
     parent('default'),
 
     db => {
-        hatena_newbie => {
-            user     => 'hatena_newbie',
-            password => 'hatena_newbie',
-            dsn      => 'dbi:mysql:dbname=hatena_newbie_test;host=localhost',
+        intern_diary => {
+            user     => 'intern_diary',
+            password => 'intern_diary',
+            dsn      => 'dbi:mysql:dbname=intern_diary_test;host=localhost',
         },
     },
     db_timezone => 'UTC',
