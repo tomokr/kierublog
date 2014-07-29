@@ -1,4 +1,4 @@
-package Hatena::Newbie::DBI;
+package Intern::Diary::DBI;
 
 use strict;
 use warnings;

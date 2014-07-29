@@ -1,15 +1,15 @@
-package Hatena::Newbie::Config;
+package Intern::Diary::Config;
 
 use strict;
 use warnings;
 use utf8;
 
-use Hatena::Newbie::Config::Route;
+use Intern::Diary::Config::Route;
 
 use Config::ENV 'HATENA_NEWBIE_ENV', export => 'config';
 use Path::Class qw(file);
 
-my $Router = Hatena::Newbie::Config::Route->make_router;
+my $Router = Intern::Diary::Config::Route->make_router;
 my $Root = file(__FILE__)->dir->parent->parent->parent->absolute;
 
 sub router { $Router }

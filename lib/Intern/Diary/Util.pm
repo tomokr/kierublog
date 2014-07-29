@@ -1,4 +1,4 @@
-package Hatena::Newbie::Util;
+package Intern::Diary::Util;
 
 use strict;
 use warnings;
@@ -10,7 +10,7 @@ use Sub::Name;
 use DateTime;
 use DateTime::Format::MySQL;
 
-use Hatena::Newbie::Config;
+use Intern::Diary::Config;
 
 sub now () {
     my $now = DateTime->now(time_zone => config->param('db_timezone'));

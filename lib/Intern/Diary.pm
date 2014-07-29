@@ -1,4 +1,4 @@
-package Hatena::Newbie;
+package Intern::Diary;
 
 use strict;
 use warnings;
@@ -9,10 +9,10 @@ use Guard;  # guard
 use HTTP::Status ();
 use Try::Tiny;
 
-use Hatena::Newbie::Error;
-use Hatena::Newbie::Context;
-use Hatena::Newbie::Config;
-use Hatena::Newbie::Logger qw(critf);
+use Intern::Diary::Error;
+use Intern::Diary::Context;
+use Intern::Diary::Config;
+use Intern::Diary::Logger qw(critf);
 
 sub as_psgi {
     my $class = shift;
@@ -25,11 +25,11 @@ sub as_psgi {
 sub run {
     my ($class, $env) = @_;
 
-    my $context = Hatena::Newbie::Context->from_env($env);
+    my $context = Intern::Diary::Context->from_env($env);
     my $dispatch;
     try {
-        my $route = $context->route or Hatena::Newbie::Error->throw(404);
-        $route->{engine} or Hatena::Newbie::Error->throw(404);
+        my $route = $context->route or Intern::Diary::Error->throw(404);
+        $route->{engine} or Intern::Diary::Error->throw(404);
         $env->{'hatena.newbie.route'} = $route;
 
         my $engine = join '::', __PACKAGE__, 'Engine', $route->{engine};
@@ -40,14 +40,14 @@ sub run {
 
         $class->before_dispatch($context);
 
-        my $handler = $engine->can($action) or Hatena::Newbie::Error->throw(501);
+        my $handler = $engine->can($action) or Intern::Diary::Error->throw(501);
 
         $engine->$handler($context);
     }
     catch {
         my $e = $_;
         my $res = $context->request->new_response;
-        if (eval { $e->isa('Hatena::Newbie::Error') }) {
+        if (eval { $e->isa('Intern::Diary::Error') }) {
             my $message = $e->{message} || HTTP::Status::status_message($e->{code});
             $res->code($e->{code});
             $res->header('X-Error-Message' => $message);

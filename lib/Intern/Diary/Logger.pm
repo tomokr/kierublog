@@ -1,4 +1,4 @@
-package Hatena::Newbie::Logger;
+package Intern::Diary::Logger;
 
 use strict;
 use warnings;

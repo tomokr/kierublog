@@ -11,7 +11,7 @@ use Test::More;
 
 use Test::Hatena::Newbie;
 
-use Hatena::Newbie::Config;
+use Intern::Diary::Config;
 
 sub _config : Test(1) {
     is(config->param('origin'), "http://localhost:3000");

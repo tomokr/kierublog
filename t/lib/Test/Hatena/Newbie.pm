@@ -8,7 +8,7 @@ use Path::Class;
 use lib file(__FILE__)->dir->subdir('../../../../lib')->stringify;
 use lib glob file(__FILE__)->dir->subdir('../../../../modules/*/lib')->stringify;
 
-use Hatena::Newbie::DBI::Factory;
+use Intern::Diary::DBI::Factory;
 
 use DateTime;
 use DateTime::Format::MySQL;

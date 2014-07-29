@@ -1,4 +1,4 @@
-package Hatena::Newbie::Request;
+package Intern::Diary::Request;
 
 use strict;
 use warnings;

@@ -11,10 +11,10 @@ use Test::More;
 
 use Test::Hatena::Newbie;
 
-use Hatena::Newbie::Util;
+use Intern::Diary::Util;
 
 sub _use : Test(1) {
-    use_ok 'Hatena::Newbie::Util';
+    use_ok 'Intern::Diary::Util';
 }
 
 __PACKAGE__->runtests;

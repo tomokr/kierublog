@@ -1,4 +1,4 @@
-package Hatena::Newbie::Model::User;
+package Intern::Diary::Model::User;
 
 use strict;
 use warnings;
@@ -12,7 +12,7 @@ use Class::Accessor::Lite (
     new => 1,
 );
 
-use Hatena::Newbie::Util;
+use Intern::Diary::Util;
 
 sub created {
     my ($self) = @_;

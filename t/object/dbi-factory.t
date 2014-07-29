@@ -11,14 +11,14 @@ use Test::More;
 
 use Test::Hatena::Newbie;
 
-use Hatena::Newbie::DBI::Factory;
+use Intern::Diary::DBI::Factory;
 
 sub _use : Test(1) {
-    use_ok 'Hatena::Newbie::DBI::Factory';
+    use_ok 'Intern::Diary::DBI::Factory';
 }
 
 sub _dbconfig : Test(3) {
-    my $dbfactory = Hatena::Newbie::DBI::Factory->new;
+    my $dbfactory = Intern::Diary::DBI::Factory->new;
     my $db_config = $dbfactory->dbconfig('hatena_newbie');
     is $db_config->{user}, 'hatena_newbie';
     is $db_config->{password}, 'hatena_newbie';
@@ -26,7 +26,7 @@ sub _dbconfig : Test(3) {
 }
 
 sub _dbh : Test(1) {
-    my $dbfactory = Hatena::Newbie::DBI::Factory->new;
+    my $dbfactory = Intern::Diary::DBI::Factory->new;
     my $dbh = $dbfactory->dbh('hatena_newbie');
     ok $dbh;
 

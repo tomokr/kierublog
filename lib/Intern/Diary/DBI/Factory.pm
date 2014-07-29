@@ -1,13 +1,13 @@
-package Hatena::Newbie::DBI::Factory;
+package Intern::Diary::DBI::Factory;
 
 use strict;
 use warnings;
 use utf8;
 
-use Hatena::Newbie::Config;
+use Intern::Diary::Config;
 use Carp ();
 
-use Hatena::Newbie::DBI;
+use Intern::Diary::DBI;
 
 sub new {
     my ($class) = @_;
@@ -28,7 +28,7 @@ sub dbh {
     my $password  = $db_config->{password} or Carp::croak qq(password for '$name' does not exist);
     my $dsn       = $db_config->{dsn} or Carp::croak qq(dsn for '$name' does not exist);
 
-    my $dbh = Hatena::Newbie::DBI->connect($dsn, $user, $password);
+    my $dbh = Intern::Diary::DBI->connect($dsn, $user, $password);
     return $dbh;
 }
 

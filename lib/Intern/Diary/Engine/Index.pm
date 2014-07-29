@@ -1,4 +1,4 @@
-package Hatena::Newbie::Engine::Index;
+package Intern::Diary::Engine::Index;
 
 use strict;
 use warnings;

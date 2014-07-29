@@ -1,4 +1,4 @@
-package Hatena::Newbie::Engine::User;
+package Intern::Diary::Engine::User;
 
 use strict;
 use warnings;
@@ -6,7 +6,7 @@ use utf8;
 
 use FormValidator::Lite;
 
-use Hatena::Newbie::Util;
+use Intern::Diary::Util;
 
 sub list {
     my ($class, $c) = @_;
@@ -14,7 +14,7 @@ sub list {
     my $users = $c->dbh('hatena_newbie')->select_all_as(q[
         SELECT * FROM user
           ORDER BY created desc
-    ], "Hatena::Newbie::Model::User");
+    ], 'Intern::Diary::Model::User');
 
     $c->html('user/list.html', {
         users => $users,

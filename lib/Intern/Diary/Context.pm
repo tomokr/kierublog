@@ -1,11 +1,11 @@
-package Hatena::Newbie::Context;
+package Intern::Diary::Context;
 
 use strict;
 use warnings;
 use utf8;
 
-use Hatena::Newbie::Request;
-use Hatena::Newbie::Config;
+use Intern::Diary::Request;
+use Intern::Diary::Config;
 
 use Carp ();
 use Encode ();
@@ -18,8 +18,8 @@ use Class::Accessor::Lite::Lazy (
     new     => 1,
 );
 
-use Hatena::Newbie::Error;
-use Hatena::Newbie::DBI::Factory;
+use Intern::Diary::Error;
+use Intern::Diary::DBI::Factory;
 
 ### Properties
 
@@ -32,7 +32,7 @@ sub _build_request {
     my $self = shift;
 
     return undef unless $self->env;
-    return Hatena::Newbie::Request->new($self->env);
+    return Intern::Diary::Request->new($self->env);
 };
 
 sub _build_response {
@@ -42,7 +42,7 @@ sub _build_response {
 
 sub _build_route {
     my $self = shift;
-    return Hatena::Newbie::Config->router->match($self->env);
+    return Intern::Diary::Config->router->match($self->env);
 };
 
 sub _build_stash { +{} };
@@ -56,8 +56,8 @@ sub render_file {
     my ($self, $file, $args) = @_;
     $args //= {};
 
-    require Hatena::Newbie::View::Xslate;
-    my $content = Hatena::Newbie::View::Xslate->render_file($file, {
+    require Intern::Diary::View::Xslate;
+    my $content = Intern::Diary::View::Xslate->render_file($file, {
         c => $self,
         %{ $self->stash },
         %$args
@@ -99,7 +99,7 @@ sub redirect {
 
 sub error {
     my ($self, $code, $message, %opts) = @_;
-    Hatena::Newbie::Error->throw($code, $message, %opts);
+    Intern::Diary::Error->throw($code, $message, %opts);
 }
 
 sub uri_for {
@@ -112,7 +112,7 @@ sub uri_for {
 ### DB Access
 sub _build_db {
     my ($self) = @_;
-    return Hatena::Newbie::DBI::Factory->new;
+    return Intern::Diary::DBI::Factory->new;
 }
 
 sub dbh {

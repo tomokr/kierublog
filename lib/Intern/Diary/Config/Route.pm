@@ -1,4 +1,4 @@
-package Hatena::Newbie::Config::Route;
+package Intern::Diary::Config::Route;
 
 use strict;
 use warnings;

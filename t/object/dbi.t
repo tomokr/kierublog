@@ -11,7 +11,7 @@ use Test::Hatena::Newbie;
 use Test::More;
 
 sub _use : Test(1) {
-    use_ok 'Hatena::Newbie::DBI';
+    use_ok 'Intern::Diary::DBI';
 }
 
 __PACKAGE__->runtests;

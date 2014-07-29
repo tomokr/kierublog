@@ -11,8 +11,8 @@ our @EXPORT = qw(
 
 use String::Random qw(random_regex);
 
-use Hatena::Newbie::Util;
-use Hatena::Newbie::DBI::Factory;
+use Intern::Diary::Util;
+use Intern::Diary::DBI::Factory;
 use Hatena::Newbie::Util::now;
 
 # ランダムなユーザを作成する
@@ -21,7 +21,7 @@ sub create_user (%) {
     my $name    = $args{name} // random_regex('\w{30}');
     my $created = $args{created} // Hatena::Newbie::Util::now;
 
-    my $dbh = Hatena::Newbie::DBI::Factory->new->dbh('hatena_newbie');
+    my $dbh = Intern::Diary::DBI::Factory->new->dbh('hatena_newbie');
 
     $dbh->query(q[
         INSERT INTO user
@@ -37,7 +37,7 @@ sub create_user (%) {
           WHERE name = :name
     ], {
         name => $name
-    }, "Hatena::Newbie::Model::User");
+    }, 'Intern::Diary::Model::User');
 }
 
 1;
