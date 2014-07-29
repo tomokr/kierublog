@@ -1,4 +1,4 @@
-package t::Hatena::Newbie::Engine::Index;
+package t::Intern::Diary::Engine::Index;
 
 use strict;
 use warnings;
@@ -7,8 +7,8 @@ use lib 't/lib';
 
 use parent 'Test::Class';
 
-use Test::Hatena::Newbie;
-use Test::Hatena::Newbie::Mechanize;
+use Test::Intern::Diary;
+use Test::Intern::Diary::Mechanize;
 
 sub _get : Test(3) {
     my $mech = create_mech;

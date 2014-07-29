@@ -1,4 +1,4 @@
-package t::Hatena::Newbie::DBI;
+package t::Intern::Diary::DBI;
 
 use strict;
 use warnings;
@@ -7,7 +7,7 @@ use lib 't/lib';
 
 use parent 'Test::Class';
 
-use Test::Hatena::Newbie;
+use Test::Intern::Diary;
 use Test::More;
 
 sub _use : Test(1) {

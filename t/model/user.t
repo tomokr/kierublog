@@ -1,11 +1,11 @@
-package t::Hatena::Newbie::Model::User;
+package t::Intern::Diary::Model::User;
 
 use strict;
 use warnings;
 use utf8;
 use lib 't/lib';
 
-use Test::Hatena::Newbie;
+use Test::Intern::Diary;
 
 use Test::More;
 
@@ -19,7 +19,7 @@ sub _use : Test(startup => 1) {
 }
 
 sub _accessor : Test(3) {
-    my $now = Hatena::Newbie::Util::now;
+    my $now = Intern::Diary::Util::now;
     my $user = Intern::Diary::Model::User->new(
         user_id => 1,
         name    => 'user_name',

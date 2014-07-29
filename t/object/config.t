@@ -1,4 +1,4 @@
-package t::Hatena::Newbie::Config;
+package t::Intern::Diary::Config;
 
 use strict;
 use warnings;
@@ -9,7 +9,7 @@ use parent 'Test::Class';
 
 use Test::More;
 
-use Test::Hatena::Newbie;
+use Test::Intern::Diary;
 
 use Intern::Diary::Config;
 
