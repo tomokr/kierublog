@@ -13,12 +13,12 @@ $ script/appup
 ## API
 
 ### $c
-- `Hatena::Newbie::Context`
+- `Intern::Diary::Context`
 - コンテキストという名が示すように、ユーザーからのリクエストにレスポンスを返すまでに最低限必要な一連のメソッドがまとめられている
 
 ### $c->req
 - リクエストオブジェクトを取得する
-- [Plack::Request](http://search.cpan.org/~miyagawa/Plack/lib/Plack/Request.pm)を継承した`Hatena::Newbie::Request`
+- [Plack::Request](http://search.cpan.org/~miyagawa/Plack/lib/Plack/Request.pm)を継承した`Intern::Diary::Request`
 
 ### $c->req->parameters->{key}
 - `key`に対応するリクエストパラメーターを取得する
@@ -26,7 +26,7 @@ $ script/appup
 
 ### $c->dbh
 - データベースハンドラーを取得する
-- [DBIx::Sunny](http://search.cpan.org/~kazeburo/DBIx-Sunny-0.22/lib/DBIx/Sunny.pm)を継承した`Hatena::Newbie::DBI`
+- [DBIx::Sunny](http://search.cpan.org/~kazeburo/DBIx-Sunny-0.22/lib/DBIx/Sunny.pm)を継承した`Intern::Diary::DBI`
 
 ### $c->html
 - ファイル名とテンプレート変数を渡すと、レスポンスをHTMLとして設定してくれる
@@ -52,4 +52,4 @@ $c->redirect('/');
 
 ### $c->route
 - ルーティング結果が格納されたハッシュリファレンスを取得する
-- ルーティングは`Hatena::Newbie::Config::Route`で行われる
+- ルーティングは`Intern::Diary::Config::Route`で行われる

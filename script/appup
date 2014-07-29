@@ -6,7 +6,7 @@ no  warnings 'redefine';
 $ENV{DEBUG} = 1 unless defined $ENV{DEBUG};
 $ENV{PERL_LWP_SSL_VERIFY_HOSTNAME} = 0;
 
-my $runner = Plack::Runner::Hatena::Newbie->new;
+my $runner = Plack::Runner::Intern::Diary->new;
 $runner->parse_options(
     '--port' => 3000,
     '--app'  => 'script/app.psgi',
@@ -22,12 +22,12 @@ my $options = +{ @{ $runner->{options} } };
 # --enable-kyt-prof
 if ($options->{kyt_prof}) {
     require Devel::KYTProf;
-    Devel::KYTProf->namespace_regex(qr/^Hatena::Newbie/);
+    Devel::KYTProf->namespace_regex(qr/^Intern::Diary/);
 }
 
 $runner->run;
 
-package Plack::Runner::Hatena::Newbie;
+package Plack::Runner::Intern::Diary;
 use strict;
 use warnings;
 use parent 'Plack::Runner';
