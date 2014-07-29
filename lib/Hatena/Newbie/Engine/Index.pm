@@ -1,4 +1,4 @@
-package Intern::Bookmark::Engine::Index;
+package Hatena::Newbie::Engine::Index;
 
 use strict;
 use warnings;

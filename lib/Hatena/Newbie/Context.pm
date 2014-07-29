@@ -1,11 +1,11 @@
-package Intern::Bookmark::Context;
+package Hatena::Newbie::Context;
 
 use strict;
 use warnings;
 use utf8;
 
-use Intern::Bookmark::Request;
-use Intern::Bookmark::Config;
+use Hatena::Newbie::Request;
+use Hatena::Newbie::Config;
 
 use Carp ();
 use Encode ();
@@ -18,8 +18,8 @@ use Class::Accessor::Lite::Lazy (
     new     => 1,
 );
 
-use Intern::Bookmark::Error;
-use Intern::Bookmark::DBI::Factory;
+use Hatena::Newbie::Error;
+use Hatena::Newbie::DBI::Factory;
 
 ### Properties
 
@@ -32,7 +32,7 @@ sub _build_request {
     my $self = shift;
 
     return undef unless $self->env;
-    return Intern::Bookmark::Request->new($self->env);
+    return Hatena::Newbie::Request->new($self->env);
 };
 
 sub _build_response {
@@ -42,7 +42,7 @@ sub _build_response {
 
 sub _build_route {
     my $self = shift;
-    return Intern::Bookmark::Config->router->match($self->env);
+    return Hatena::Newbie::Config->router->match($self->env);
 };
 
 sub _build_stash { +{} };
@@ -56,8 +56,8 @@ sub render_file {
     my ($self, $file, $args) = @_;
     $args //= {};
 
-    require Intern::Bookmark::View::Xslate;
-    my $content = Intern::Bookmark::View::Xslate->render_file($file, {
+    require Hatena::Newbie::View::Xslate;
+    my $content = Hatena::Newbie::View::Xslate->render_file($file, {
         c => $self,
         %{ $self->stash },
         %$args
@@ -99,7 +99,7 @@ sub redirect {
 
 sub error {
     my ($self, $code, $message, %opts) = @_;
-    Intern::Bookmark::Error->throw($code, $message, %opts);
+    Hatena::Newbie::Error->throw($code, $message, %opts);
 }
 
 sub uri_for {
@@ -112,7 +112,7 @@ sub uri_for {
 ### DB Access
 sub _build_db {
     my ($self) = @_;
-    return Intern::Bookmark::DBI::Factory->new;
+    return Hatena::Newbie::DBI::Factory->new;
 }
 
 sub dbh {

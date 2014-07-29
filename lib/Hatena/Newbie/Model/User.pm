@@ -1,4 +1,4 @@
-package Intern::Bookmark::Model::User;
+package Hatena::Newbie::Model::User;
 
 use strict;
 use warnings;
@@ -12,12 +12,12 @@ use Class::Accessor::Lite (
     new => 1,
 );
 
-use Intern::Bookmark::Util;
+use Hatena::Newbie::Util;
 
 sub created {
     my ($self) = @_;
     $self->{_created} ||= eval {
-        Intern::Bookmark::Util::datetime_from_db($self->{created});
+        Hatena::Newbie::Util::datetime_from_db($self->{created});
     };
 }
 

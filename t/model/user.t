@@ -1,26 +1,26 @@
-package t::Intern::Bookmark::Model::User;
+package t::Hatena::Newbie::Model::User;
 
 use strict;
 use warnings;
 use utf8;
 use lib 't/lib';
 
-use Test::Intern::Bookmark;
+use Test::Hatena::Newbie;
 
 use Test::More;
 
 use parent 'Test::Class';
 
-use Intern::Bookmark::Util;
+use Hatena::Newbie::Util;
 
 sub _use : Test(startup => 1) {
     my ($self) = @_;
-    use_ok 'Intern::Bookmark::Model::User';
+    use_ok 'Hatena::Newbie::Model::User';
 }
 
 sub _accessor : Test(3) {
-    my $now = Intern::Bookmark::Util::now;
-    my $user = Intern::Bookmark::Model::User->new(
+    my $now = Hatena::Newbie::Util::now;
+    my $user = Hatena::Newbie::Model::User->new(
         user_id => 1,
         name    => 'user_name',
         created => $now,

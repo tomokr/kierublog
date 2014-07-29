@@ -1,4 +1,4 @@
-package t::Intern::Bookmark::Engine::User;
+package t::Hatena::Newbie::Engine::User;
 
 use strict;
 use warnings;
@@ -7,9 +7,9 @@ use lib 't/lib';
 
 use parent 'Test::Class';
 
-use Test::Intern::Bookmark;
-use Test::Intern::Bookmark::Mechanize;
-use Test::Intern::Bookmark::Factory;
+use Test::Hatena::Newbie;
+use Test::Hatena::Newbie::Mechanize;
+use Test::Hatena::Newbie::Factory;
 
 use Test::More;
 

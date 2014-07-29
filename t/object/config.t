@@ -1,4 +1,4 @@
-package t::Intern::Bookmark::Config;
+package t::Hatena::Newbie::Config;
 
 use strict;
 use warnings;
@@ -9,9 +9,9 @@ use parent 'Test::Class';
 
 use Test::More;
 
-use Test::Intern::Bookmark;
+use Test::Hatena::Newbie;
 
-use Intern::Bookmark::Config;
+use Hatena::Newbie::Config;
 
 sub _config : Test(1) {
     is(config->param('origin'), "http://localhost:3000");

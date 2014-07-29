@@ -1,4 +1,4 @@
-package Intern::Bookmark::Request;
+package Hatena::Newbie::Request;
 
 use strict;
 use warnings;
@@ -21,8 +21,8 @@ sub parameters {
 
 sub route_parameters {
     my ($self) = @_;
-    return $self->env->{'intern.bookmark.route.parameters'} ||=
-        Hash::MultiValue->new(%{ $self->env->{'intern.bookmark.route'} });
+    return $self->env->{'hatena.newbie.route.parameters'} ||=
+        Hash::MultiValue->new(%{ $self->env->{'hatena.newbie.route'} });
 }
 
 sub is_xhr {

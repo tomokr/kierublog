@@ -1,4 +1,4 @@
-package Test::Intern::Bookmark;
+package Test::Hatena::Newbie;
 
 use strict;
 use warnings;
@@ -8,13 +8,13 @@ use Path::Class;
 use lib file(__FILE__)->dir->subdir('../../../../lib')->stringify;
 use lib glob file(__FILE__)->dir->subdir('../../../../modules/*/lib')->stringify;
 
-use Intern::Bookmark::DBI::Factory;
+use Hatena::Newbie::DBI::Factory;
 
 use DateTime;
 use DateTime::Format::MySQL;
 
 BEGIN {
-    $ENV{INTERN_BOOKMARK_ENV} = 'test';
+    $ENV{HATENA_NEWBIE_ENV} = 'test';
     $ENV{PLACK_ENV} = 'test';
     $ENV{DBI_REWRITE_DSN} ||= 1;
 }

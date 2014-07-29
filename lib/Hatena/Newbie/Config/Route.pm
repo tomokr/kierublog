@@ -1,4 +1,4 @@
-package Intern::Bookmark::Config::Route;
+package Hatena::Newbie::Config::Route;
 
 use strict;
 use warnings;

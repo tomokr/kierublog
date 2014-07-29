@@ -4,8 +4,8 @@ use utf8;
 
 use lib 'lib';
 
-use Intern::Bookmark;
-use Intern::Bookmark::Config;
+use Hatena::Newbie;
+use Hatena::Newbie::Config;
 
 use Path::Class qw(file);
 use Plack::Builder;
@@ -14,7 +14,7 @@ use Plack::Middleware::Head;
 use Plack::Middleware::Runtime;
 use Plack::Middleware::Static;
 
-my $app = Intern::Bookmark->as_psgi;
+my $app = Hatena::Newbie->as_psgi;
 my $root = config->root;
 
 builder {
@@ -59,7 +59,7 @@ builder {
             my $app = shift;
             sub {
                 my $env = shift;
-                local $Intern::Bookmark::Logger::HANDLE = $fh_error;
+                local $Hatena::Newbie::Logger::HANDLE = $fh_error;
                 return $app->($env);
             };
         };

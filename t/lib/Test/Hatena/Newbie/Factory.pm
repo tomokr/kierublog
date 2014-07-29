@@ -1,4 +1,4 @@
-package Test::Intern::Bookmark::Factory;
+package Test::Hatena::Newbie::Factory;
 
 use strict;
 use warnings;
@@ -11,17 +11,17 @@ our @EXPORT = qw(
 
 use String::Random qw(random_regex);
 
-use Intern::Bookmark::Util;
-use Intern::Bookmark::DBI::Factory;
-use Intern::Bookmark::Util::now;
+use Hatena::Newbie::Util;
+use Hatena::Newbie::DBI::Factory;
+use Hatena::Newbie::Util::now;
 
 # ランダムなユーザを作成する
 sub create_user (%) {
     my (%args) = @_;
     my $name    = $args{name} // random_regex('\w{30}');
-    my $created = $args{created} // Intern::Bookmark::Util::now;
+    my $created = $args{created} // Hatena::Newbie::Util::now;
 
-    my $dbh = Intern::Bookmark::DBI::Factory->new->dbh('intern_bookmark');
+    my $dbh = Hatena::Newbie::DBI::Factory->new->dbh('hatena_newbie');
 
     $dbh->query(q[
         INSERT INTO user
@@ -37,7 +37,7 @@ sub create_user (%) {
           WHERE name = :name
     ], {
         name => $name
-    }, "Intern::Bookmark::Model::User");
+    }, "Hatena::Newbie::Model::User");
 }
 
 1;

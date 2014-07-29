@@ -1,4 +1,4 @@
-package Intern::Bookmark::Error;
+package Hatena::Newbie::Error;
 
 use strict;
 use warnings;
