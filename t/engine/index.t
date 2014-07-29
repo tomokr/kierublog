@@ -14,7 +14,7 @@ sub _get : Test(3) {
     my $mech = create_mech;
     $mech->get_ok('/');
     $mech->title_is('Intern::Diary');
-    $mech->content_contains('Hatena-Newbie');
+    $mech->content_contains('Intern::Diary');
 }
 
 __PACKAGE__->runtests;

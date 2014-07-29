@@ -30,7 +30,7 @@ sub run {
     try {
         my $route = $context->route or Intern::Diary::Error->throw(404);
         $route->{engine} or Intern::Diary::Error->throw(404);
-        $env->{'hatena.newbie.route'} = $route;
+        $env->{'intern.diary.route'} = $route;
 
         my $engine = join '::', __PACKAGE__, 'Engine', $route->{engine};
         my $action = $route->{action} || 'default';

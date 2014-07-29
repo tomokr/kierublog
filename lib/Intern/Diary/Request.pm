@@ -21,8 +21,8 @@ sub parameters {
 
 sub route_parameters {
     my ($self) = @_;
-    return $self->env->{'hatena.newbie.route.parameters'} ||=
-        Hash::MultiValue->new(%{ $self->env->{'hatena.newbie.route'} });
+    return $self->env->{'intern.diary.route.parameters'} ||=
+        Hash::MultiValue->new(%{ $self->env->{'intern.diary.route'} });
 }
 
 sub is_xhr {
