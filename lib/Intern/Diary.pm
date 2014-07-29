@@ -73,18 +73,6 @@ sub run {
 
 sub before_dispatch {
     my ($class, $c) = @_;
-    # -------- csrfのための何らかの処理が欲しい -----
-    # if ($c->req->method eq 'POST') {
-    #     if ($c->user) {
-    #         my $rkm = $c->req->parameter(body => 'rkm') or die 400;
-    #         my $rkc = $c->req->parameter(body => 'rkc') or die 400;
-    #         if ($rkm ne $c->user->rkm || $rkc ne $c->user->rkc) {
-    #             die 400;
-    #         }
-    #     } else {
-    #         die 400;
-    #     }
-    # }
 }
 
 sub after_dispatch {
