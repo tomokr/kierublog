@@ -7,35 +7,35 @@ __END__
 
 =head1 NAME
 
-diary.pl - コマンドラインで日記を書くためのツール。データはデータベースに書き込みます。
+diary-file.pl - コマンドラインで日記を書くためのツール。データはファイルに書き込みます。
 
 =head1 SYNOPSIS
 
-  $ ./diary.pl [action] [argument...]
+  $ ./diary-file.pl [action] [argument...]
 
 =head1 ACTIONS
 
 =head2 C<add>
 
-  $ diary.pl add [title]
+  $ diary-file.pl add [title]
 
 日記に記事を書きます。
 
 =head2 C<list>
 
-  $ diary.pl list
+  $ diary-file.pl list
 
 日記に投稿された記事の一覧を表示します。
 
 =head2 C<edit>
 
-  $ diary.pl edit [entry ID]
+  $ diary-file.pl edit [entry ID]
 
 指定したIDの記事を編集します。
 
 =head2 C<delete>
 
-  $ diary.pl delete [entry ID]
+  $ diary-file.pl delete [entry ID]
 
 指定したIDの記事を削除します。
 
