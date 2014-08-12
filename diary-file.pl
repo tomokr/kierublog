@@ -11,6 +11,8 @@ use Encode;
 use File::Slurp; #ファイルの読み書き用
 use Intern::Diary::Model::Entry; #日記のひな形
 use DateTime;
+use File::Temp; #外部エディタで編集したファイルをよみこむ用
+use Path::Class; #上に同じ
 
 
 my %HANDLERS = (
@@ -32,11 +34,15 @@ sub add_diary{
     die 'title required' unless defined $title; #タイトル必要
 
     my $now = now_datetime_as_string();
-    my $diary_id = $now; #generate_diary_id(); #この関数必要
+    my $diary_id = $now;
+    print "Text:";
+    my $text = <STDIN>;
+    chomp($text);
+    my $diary_text = $text;  #generate_text();不要になった
     my $entry = Intern::Diary::Model::Entry->new(
         diary_id => $diary_id,
         diary_title => $title,
-        diary_text => "test",
+        diary_text => $diary_text,
     );
 
     my $diary_ltsv = generate_ltsv_by_hashref($entry);
@@ -51,6 +57,7 @@ sub list_diary{ #時間があればもっときれいに
       print $record;
 }
 
+
 sub edit_diary{
     my ($delete_id) = @_;
     die 'id required' unless defined $delete_id; #ID必要
@@ -58,21 +65,25 @@ sub edit_diary{
     my $diary_ltsv;
     my @parsed_record = parse_diary_ltsv_file("data.ltsv");
     my $does_id_exist = 0;
-    my ($new_title, $diary_id, $entry);
+    my ($new_title, $diary_id, $entry, $new_text);
     $new_title = '';
     foreach (@parsed_record){ #空行があるとエラーがでる
-        unless($_->{diary_id} eq $delete_id){#消そうとしているidでなければ$diary_ltsvにくっつけていく
+        unless($_->{diary_id} eq $delete_id){#編集しようとしているidでなければ$diary_ltsvにくっつけていく
             $diary_ltsv .= generate_ltsv_by_hashref($_);
             }else{
                 $does_id_exist = 1;
                 print "title:";
                 $new_title = <STDIN>;
                 chomp($new_title);
+                printf "Old_text:%s\n",$_->{diary_text};
+                print "New_text:";
+                $new_text = <STDIN>;
+                chomp($new_text);
                 $diary_id = $_->{diary_id};
                 $entry = Intern::Diary::Model::Entry->new(
                     diary_id => $diary_id,
                     diary_title => $new_title,
-                    diary_text => "test",
+                    diary_text => $new_text,#edit_text($_->{diary_id}),
                 );
                  $diary_ltsv .= generate_ltsv_by_hashref($entry);
             }
@@ -103,13 +114,60 @@ sub delete_diary{ #シェルのコマンドからN行めを削除のほうがよ
 }
 
 ## 現在時刻を文字列で取得 ##
-
 sub now_datetime_as_string {
     #中身は自分で書き換えたのでBookmarkのとはちがう
     my $dt = DateTime->from_epoch(epoch => time);
     my $string = sprintf "%4d%02d%02d%02d%02d%02d",$dt->year,$dt->month,$dt->day,$dt->hour,$dt->minute,$dt->second;
     return $string;
 }
+
+=head #長文をかくつもりだったけどLTSVでは改行がやっかいなのでとりあえずいらなくなった
+## 本文生成用 ##
+## http://blog.kzfmix.com/entry/1238327032 ##
+sub generate_text{
+    my $text;
+    my $f = File::Temp->new();
+    close $f;
+    my $t = file($f->filename)->stat->mtime;
+
+    if($ENV{EDITOR}){
+        system $ENV{EDITOR}, $f->filename;
+    }else{
+        system 'vim', $f->filename;
+    }
+
+    if ($t == file($f->filename)->stat->mtime) {
+        print STDERR "No changes.";
+    } else {
+        $text = read_file($f->filename); #外部エディタで入力したデータを読み込む
+    }
+
+    return $text;
+}
+
+## テキスト編集用 ##
+sub edit_text{
+    my $text;
+    my $f = File::Temp->new();
+    close $f;
+    File::Slurp::write_file($f->filename, {append => 1}, $text);
+    my $t = file($f->filename)->stat->mtime;
+
+    if($ENV{EDITOR}){
+        system $ENV{EDITOR}, $f->filename;
+    }else{
+        system 'vim', $f->filename;
+    }
+
+    if ($t == file($f->filename)->stat->mtime) {
+        print STDERR "No changes.";
+    } else {
+        $text = read_file($f->filename); #外部エディタで入力したデータを読み込む
+    }
+
+    return $text;
+}
+=cut
 
 ## ハッシュからltsvへ ##
 sub generate_ltsv_by_hashref {
