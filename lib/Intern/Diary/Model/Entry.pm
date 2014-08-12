@@ -15,17 +15,12 @@ use Class::Accessor::Lite (
 	new => 1,
 );
 
+=head
+#いらない?
 sub title {
 	my ($self) = @_;
 	decode_utf8 $self->{title} || ''; #デコードの意味？
 }
-
-sub as_flatten_hashref {
-    my ($self) = @_;
-    my $entry_hashref = { map {
-        ("entry.$_" => $self->$_) # e.g. "entry.entry_id" => $self->entry_id
-    } qw(entry_id url title created updated) };
-    return $entry_hashref;
-}
+=cut
 
 1;
