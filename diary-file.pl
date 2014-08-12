@@ -48,7 +48,6 @@ sub add_diary{
 sub list_diary{ #時間があればもっときれいに
       my $record = File::Slurp::read_file("data.ltsv");
       print $record;
-
 }
 
 sub edit_diary{
@@ -56,6 +55,19 @@ sub edit_diary{
 }
 
 sub delete_diary{
+    my ($delete_id) = @_;
+    my $diary_ltsv;
+    my @parsed_record = parse_diary_ltsv_file("data.ltsv");
+    my $does_id_exist = 0;
+    foreach (@parsed_record){
+        unless($_->{diary_id} eq $delete_id){#消そうとしているidでなければ$diary_ltsvにくっつけていく
+            $diary_ltsv .= generate_ltsv_by_hashref($_);
+            }else{
+                $does_id_exist = 1;
+            }
+    }
+    File::Slurp::write_file("data.ltsv", $diary_ltsv); #最後に全部ファイルに書き出す
+    print "This ID does not exist!\n" if $does_id_exist == 0;
 
 }
 
@@ -84,15 +96,17 @@ sub parse_ltsv {
     return $hashref;
 }
 
-sub parse_bookmark_ltsv_file {
+sub parse_diary_ltsv_file {
     my ($filename) = @_;
+    my @parsed_record;
     my @record = File::Slurp::read_file($filename); #1行ずつよみこむ
 
-    foreach my $record (@record){
-    my $hashref  = parse_ltsv($record);
-
-    return $;
+    foreach (@record){
+    chomp($_);
+    my $hashref  = parse_ltsv($_);
+    push @parsed_record, $hashref;
 }
+    return @parsed_record; #ハッシュの配列を返す
 
 }
 
