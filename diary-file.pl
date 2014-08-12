@@ -45,7 +45,9 @@ sub add_diary{
 
 }
 
-sub list_diary{
+sub list_diary{ #時間があればもっときれいに
+      my $record = File::Slurp::read_file("data.ltsv");
+      print $record;
 
 }
 
@@ -70,6 +72,30 @@ sub now_datetime_as_string {
     my $string = sprintf "%4d%02d%02d%02d%02d%02d",$dt->year,$dt->month,$dt->day,$dt->hour,$dt->minute,$dt->second;
     return $string;
 }
+
+## ltsvファイルパース ##
+sub parse_ltsv {
+    my ($record) = @_;
+    my $fields = [ split "\t", $record ];
+    my $hashref = { map {
+        my ($label, $value) = split ':', $_, 2;
+        ($label => $value eq '-' ? undef : $value);
+    } @$fields };
+    return $hashref;
+}
+
+sub parse_bookmark_ltsv_file {
+    my ($filename) = @_;
+    my @record = File::Slurp::read_file($filename); #1行ずつよみこむ
+
+    foreach my $record (@record){
+    my $hashref  = parse_ltsv($record);
+
+    return $;
+}
+
+}
+
 
 __END__
 
