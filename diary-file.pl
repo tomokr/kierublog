@@ -2,6 +2,74 @@
 use strict;
 use warnings;
 use utf8;
+use Data::Dumper;
+
+#以下、bookmark-file.plを参考にして書いてみる
+use FindBin; #ライブラリ探索用
+use lib "$FindBin::Bin/lib", glob "$FindBin::Bin/modules/*/lib";
+use Encode;
+use File::Slurp; #ファイルの読み書き用
+use Intern::Diary::Model::Entry; #日記のひな形
+use DateTime;
+
+
+my %HANDLERS = (
+    add => \&add_diary,
+    list => \&list_diary,
+    edit => \&edit_diary,
+    delete => \&delete_diary,
+);
+
+my $command = shift @ARGV ;# || 'list'; #これは何も入力しなかったらlist?
+
+my $handler = $HANDLERS{ $command }; #or pod2usage; #使い方を表示するらしい。使うにはPod::Usageが必要
+
+$handler->(@ARGV); #あまり挙動はよくわからないけどいれてみた
+
+sub add_diary{
+    my ($title) = @_;
+
+    die 'title required' unless defined $title; #タイトル必要
+
+    my $now = now_datetime_as_string();
+    my $diary_id = $now; #generate_diary_id(); #この関数必要
+    my $entry = Intern::Diary::Model::Entry->new(
+        diary_id => $diary_id,
+        diary_title => $title,
+    );
+
+    my $diary_ltsv = generate_ltsv_by_hashref($entry);
+    File::Slurp::write_file("data.ltsv", {append => 1}, $diary_ltsv);
+    print Dumper $diary_ltsv;
+    print "OK\n";
+
+}
+
+sub list_diary{
+
+}
+
+sub edit_diary{
+
+}
+
+sub delete_diary{
+
+}
+
+sub generate_ltsv_by_hashref {
+    my ($hashref) = @_;
+    my $fields = [ map { join ':', $_, $hashref->{$_} } sort (keys %$hashref) ];
+    my $record = join("\t", @$fields) . "\n";
+    return $record;
+}
+
+sub now_datetime_as_string {
+    #中身は自分で書き換えたのでBookmarkのとはちがう
+    my $dt = DateTime->from_epoch(epoch => time);
+    my $string = sprintf "%4d%02d%02d%02d%02d%02d",$dt->year,$dt->month,$dt->day,$dt->hour,$dt->minute,$dt->second;
+    return $string;
+}
 
 __END__
 
