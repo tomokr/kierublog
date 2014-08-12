@@ -10,6 +10,7 @@ use Class::Accessor::Lite (
 	rw => [qw(
 		diary_title
 		diary_id
+		diary_text
 	)],
 	new => 1,
 );

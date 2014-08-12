@@ -36,6 +36,7 @@ sub add_diary{
     my $entry = Intern::Diary::Model::Entry->new(
         diary_id => $diary_id,
         diary_title => $title,
+        diary_text => "test",
     );
 
     my $diary_ltsv = generate_ltsv_by_hashref($entry);
@@ -51,11 +52,41 @@ sub list_diary{ #時間があればもっときれいに
 }
 
 sub edit_diary{
+    my ($delete_id) = @_;
+    die 'id required' unless defined $delete_id; #ID必要
+
+    my $diary_ltsv;
+    my @parsed_record = parse_diary_ltsv_file("data.ltsv");
+    my $does_id_exist = 0;
+    my ($new_title, $diary_id, $entry);
+    $new_title = '';
+    foreach (@parsed_record){ #空行があるとエラーがでる
+        unless($_->{diary_id} eq $delete_id){#消そうとしているidでなければ$diary_ltsvにくっつけていく
+            $diary_ltsv .= generate_ltsv_by_hashref($_);
+            }else{
+                $does_id_exist = 1;
+                print "title:";
+                $new_title = <STDIN>;
+                chomp($new_title);
+                $diary_id = $_->{diary_id};
+                $entry = Intern::Diary::Model::Entry->new(
+                    diary_id => $diary_id,
+                    diary_title => $new_title,
+                    diary_text => "test",
+                );
+                 $diary_ltsv .= generate_ltsv_by_hashref($entry);
+            }
+    }
+    File::Slurp::write_file("data.ltsv", $diary_ltsv); #最後に全部ファイルに書き出す
+    print "This ID does not exist!\n" if $does_id_exist == 0; #存在しないIDを指定した場合
 
 }
 
-sub delete_diary{
+sub delete_diary{ #シェルのコマンドからN行めを削除のほうがよさそうだけどとりあえず
     my ($delete_id) = @_;
+
+    die 'id required' unless defined $delete_id; #ID必要
+
     my $diary_ltsv;
     my @parsed_record = parse_diary_ltsv_file("data.ltsv");
     my $does_id_exist = 0;
@@ -67,22 +98,25 @@ sub delete_diary{
             }
     }
     File::Slurp::write_file("data.ltsv", $diary_ltsv); #最後に全部ファイルに書き出す
-    print "This ID does not exist!\n" if $does_id_exist == 0;
+    print "This ID does not exist!\n" if $does_id_exist == 0; #存在しないIDを指定した場合
 
 }
 
-sub generate_ltsv_by_hashref {
-    my ($hashref) = @_;
-    my $fields = [ map { join ':', $_, $hashref->{$_} } sort (keys %$hashref) ];
-    my $record = join("\t", @$fields) . "\n";
-    return $record;
-}
+## 現在時刻を文字列で取得 ##
 
 sub now_datetime_as_string {
     #中身は自分で書き換えたのでBookmarkのとはちがう
     my $dt = DateTime->from_epoch(epoch => time);
     my $string = sprintf "%4d%02d%02d%02d%02d%02d",$dt->year,$dt->month,$dt->day,$dt->hour,$dt->minute,$dt->second;
     return $string;
+}
+
+## ハッシュからltsvへ ##
+sub generate_ltsv_by_hashref {
+    my ($hashref) = @_;
+    my $fields = [ map { join ':', $_, $hashref->{$_} } sort (keys %$hashref) ];
+    my $record = join("\t", @$fields) . "\n";
+    return $record;
 }
 
 ## ltsvファイルパース ##
