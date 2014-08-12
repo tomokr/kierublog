@@ -4,6 +4,8 @@ use strict;
 use warnings;
 use utf8;
 use Encode;
+use DateTime;
+use Intern::Diary::Model::Entry;
 
 sub create_entry{
 	my ($class, $title, $diary_text) = @_;
@@ -14,6 +16,7 @@ sub create_entry{
 		diary_title => $title,
 		diary_text => $diary_text,
 	);
+
 
 	return $entry;
 }

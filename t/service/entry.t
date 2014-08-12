@@ -1,4 +1,4 @@
-package t::Intern::Diary::Model::Entry;
+package t::Intern::Diary::Service::Entry;
 
 use strict;
 use warnings;
@@ -8,19 +8,15 @@ use lib 't/lib';
 use Test::More;
 
 #モジュールがrequireできるか
-require_ok 'Intern::Diary::Model::Entry';
+require_ok 'Intern::Diary::Service::Entry';
 
-#accessorテスト
-subtest '_accessor' => sub {
-    my $now = '2014081220120000';
-    my $entry = Intern::Diary::Model::Entry->new(
-        diary_id => $now,
-        diary_title    => 'はじめまして',
-        diary_text  => 'こんにちはこんにちは',
-    );
-    is $entry->diary_id, '2014081220120000';
-    is $entry->diary_title, 'はじめまして';
-    is $entry->diary_text, 'こんにちはこんにちは';
+#createがうごくか
+subtest 'create' => sub {
+    my $title = 'はじめまして';
+    my $text = 'こんにちはこんにちは';
+    my $entry_1 = Intern::Diary::Service::Entry->create_entry($title, $text);
+
+    is $entry_1, 'diary_id:2014081220120000	diary_text:こんにちはこんにちは	diary_title:はじめまして';
 
 };
 
