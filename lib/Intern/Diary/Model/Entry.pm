@@ -16,7 +16,7 @@ use Class::Accessor::Lite (
 );
 
 =head
-#いらない?
+#いらない?N
 sub title {
 	my ($self) = @_;
 	decode_utf8 $self->{title} || ''; #デコードの意味？

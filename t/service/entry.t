@@ -6,10 +6,6 @@ use utf8;
 use lib 't/lib';
 
 use Test::More;
-use Test::Deep;
-use Test::Exception;
-use parent qw(Test::Class);
-#use String::Random qw(random_regex);
 
 #モジュールがrequireできるか
 require_ok 'Intern::Diary::Model::Entry';
