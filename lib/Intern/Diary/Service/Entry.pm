@@ -55,8 +55,6 @@ sub delete_entry{
             }
     }
 
-    print $diary_ltsv;
-
     return ($diary_ltsv, $does_id_exist);
 }
 

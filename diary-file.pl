@@ -50,7 +50,7 @@ sub add_diary{
 
 }
 
-sub list_diary{ #時間があればもっときれいに
+sub list_diary{ #時間があればもっときれいにしたい
       my $record = File::Slurp::read_file("data.ltsv");
       print $record;
 }
@@ -75,7 +75,7 @@ sub edit_diary{
              $does_id_exist = 1;
          }
     }
-#    ($diary_ltsv,$does_id_exist) = Intern::Diary::Service::Entry->edit_entry($edit_id);
+
     File::Slurp::write_file("data.ltsv", $diary_ltsv); #最後に全部ファイルに書き出す
 
     print "This ID does not exist!\n" if $does_id_exist == 0; #存在しないIDを指定した場合
