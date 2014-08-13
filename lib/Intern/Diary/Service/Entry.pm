@@ -23,23 +23,23 @@ sub create_entry{
 
 sub edit_entry{
 
-	my ($class, $edit_id) = @_;
-    my ($new_title, $diary_id, $entry, $new_text);
+	my ($class, $old_entry) = @_;
+    my ($new_title, $new_text, $new_entry, $diary_id);
      $new_title = '';
      print "title:";
      $new_title = <STDIN>;
      chomp($new_title);
-     printf "Old_text:%s\n",$_->{diary_text}; #動くけどなんか違和感
+     printf "Old_text:%s\n",$old_entry->{diary_text};
      print "New_text:";
      $new_text = <STDIN>;
      chomp($new_text);
-     $diary_id = $_->{diary_id};　#動くけどなんか違和感
-     $entry = Intern::Diary::Model::Entry->new(
+     $diary_id = $old_entry->{diary_id};
+     $new_entry = Intern::Diary::Model::Entry->new(
         diary_id => $diary_id,
         diary_title => $new_title,
-                    diary_text => $new_text,#edit_text($_->{diary_id}),
-                    );
-     return $entry;
+        diary_text => $new_text,
+        );
+     return $new_entry;
     }
 
 sub delete_entry{

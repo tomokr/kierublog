@@ -69,7 +69,8 @@ sub edit_diary{
         unless($_->{diary_id} eq $edit_id){#編集しようとしているidでなければ$diary_ltsvにくっつけていく
             $diary_ltsv .= Intern::Diary::Model::Parse->generate_ltsv_by_hashref($_);
             }else{
-             $entry = Intern::Diary::Service::Entry->edit_entry($edit_id);
+                #消そうとしているところの処理
+             $entry = Intern::Diary::Service::Entry->edit_entry($_);
              $diary_ltsv .= Intern::Diary::Model::Parse->generate_ltsv_by_hashref($entry);
              $does_id_exist = 1;
          }
