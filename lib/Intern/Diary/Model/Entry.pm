@@ -11,6 +11,9 @@ use Class::Accessor::Lite (
 		diary_title
 		diary_id
 		diary_text
+		user_id
+		created
+		date
 	)],
 	new => 1,
 );

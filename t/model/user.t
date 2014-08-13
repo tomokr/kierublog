@@ -14,11 +14,11 @@ require_ok 'Intern::Diary::Model::User';
 subtest '_accessor' => sub {
 
     my $user = Intern::Diary::Model::User->new(
-        user_id => '1234',
+        id => '1234',
         name => 'doughnutomo',
 
     );
-    is $user->user_id, '1234';
+    is $user->id, '1234';
     is $user->name, 'doughnutomo';
 
 };

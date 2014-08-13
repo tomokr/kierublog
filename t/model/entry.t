@@ -21,10 +21,16 @@ subtest '_accessor' => sub {
         diary_id => $now,
         diary_title    => 'はじめまして',
         diary_text  => 'こんにちはこんにちは',
+        user_id => 'doughnutomo',
+        created => '2014-08-13 15:38:00',
+        date => '2014-08-13'
     );
     is $entry->diary_id, '20140812201200';
     is $entry->diary_title, 'はじめまして';
     is $entry->diary_text, 'こんにちはこんにちは';
+    is $entry->user_id, 'doughnutomo';
+    is $entry->created, '2014-08-13 15:38:00';
+    is $entry->date, '2014-08-13';
 
 };
 

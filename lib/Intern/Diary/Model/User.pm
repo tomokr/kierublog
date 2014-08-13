@@ -8,7 +8,7 @@ use Encode;
 
 use Class::Accessor::Lite (
 	rw => [qw(
-		user_id
+		id
 		name
 	)],
 	new => 1,
