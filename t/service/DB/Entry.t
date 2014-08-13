@@ -21,12 +21,12 @@ use Intern::Diary::Util;
 require_ok 'Intern::Diary::Service::DB::Entry';
 
 #createメソッドのテスト
-subtest 'create' => sub {
+subtest 'create_entry' => sub {
         my $user = create_user;
         my $now = Intern::Diary::Util::now;
 
         my $db = Intern::Diary::DBI::Factory->new;
-        Intern::Diary::Service::DB::Entry->create($db, {
+        Intern::Diary::Service::DB::Entry->create_entry($db, {
              user_id => $user->id,
              diary_text => 'texttext',
              diary_title => 'titletitle',

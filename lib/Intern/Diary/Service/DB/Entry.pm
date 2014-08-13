@@ -9,7 +9,7 @@ use Encode;
 
 use Intern::Diary::Util;
 
-sub create {
+sub create_entry {
     my ($class, $db, $args) = @_;
 
     my $user_id = $args->{user_id} // croak 'user_id required';
