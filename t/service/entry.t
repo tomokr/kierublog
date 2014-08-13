@@ -45,8 +45,8 @@ subtest 'edit' => sub{
 };
 
 #deleteがうごくか
-subtest 'delete' => sub{
+#subtest 'delete' => sub{
 
-};
+#};
 
 done_testing;
