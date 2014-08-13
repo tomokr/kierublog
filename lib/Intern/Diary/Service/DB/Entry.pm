@@ -64,27 +64,42 @@ sub find_entry_by_user_id_and_created {
     }, 'Intern::Diary::Model::Entry');
 }
 
-=head
-sub update {
+sub find_entries_by_user_id {
     my ($class, $db, $args) = @_;
 
-    my $bookmark_id = $args->{bookmark_id} // croak 'bookmark_id required';
-    my $comment = $args->{comment} // '';
+    my $user_id = $args->{user_id} // croak 'user_id required';
 
-    $db->dbh('intern_bookmark')->query(q[
-        UPDATE bookmark
-          SET
-            comment = :comment,
-            updated = :updated
-          WHERE
-            bookmark_id = :bookmark_id
+    $db->dbh('intern_diary')->select_all_as(q[
+        SELECT * FROM entry
+          WHERE user_id = :user_id
     ], {
-        bookmark_id => $bookmark_id,
-        comment     => encode_utf8 $comment,
-        updated     => Intern::Bookmark::Util->now,
+        user_id => $user_id,
+    }, 'Intern::Diary::Model::Entry');
+};
+
+sub update_entry {
+    my ($class, $db, $args) = @_;
+
+    my $entry_id = $args->{entry_id} // croak 'entry_id required';
+    my $title = $args->{title} // croak 'title required';
+    my $text = $args->{text} // croak 'text required';
+
+    $db->dbh('intern_diary')->query(q[
+        UPDATE entry
+          SET
+            title = :title,
+            text = :text,
+            date = :date
+          WHERE
+            id = :entry_id
+    ], {
+        entry_id => $entry_id,
+        title     => encode_utf8 $title,
+        text     => encode_utf8 $text,
+        date     => Intern::Diary::Util->now,
     });
 }
 
-=cut
+
 
 1;
