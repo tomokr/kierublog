@@ -16,13 +16,13 @@ require_ok 'Intern::Diary::Model::Entry';
 
 #accessorテスト
 subtest '_accessor' => sub {
-    my $now = '2014081220120000';
+    my $now = '20140812201200';
     my $entry = Intern::Diary::Model::Entry->new(
         diary_id => $now,
         diary_title    => 'はじめまして',
         diary_text  => 'こんにちはこんにちは',
     );
-    is $entry->diary_id, '2014081220120000';
+    is $entry->diary_id, '20140812201200';
     is $entry->diary_title, 'はじめまして';
     is $entry->diary_text, 'こんにちはこんにちは';
 

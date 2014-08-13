@@ -29,11 +29,11 @@ sub edit_entry{
      print "title:";
      $new_title = <STDIN>;
      chomp($new_title);
-     printf "Old_text:%s\n",$_->{diary_text};
+     printf "Old_text:%s\n",$_->{diary_text}; #動くけどなんか違和感
      print "New_text:";
      $new_text = <STDIN>;
      chomp($new_text);
-     $diary_id = $_->{diary_id};
+     $diary_id = $_->{diary_id};　#動くけどなんか違和感
      $entry = Intern::Diary::Model::Entry->new(
         diary_id => $diary_id,
         diary_title => $new_title,
@@ -60,14 +60,6 @@ sub delete_entry{
     return ($diary_ltsv, $does_id_exist);
 }
 
-## ハッシュからltsvへ ##
-sub generate_ltsv_by_hashref {
-    my ($hashref) = @_;
-    my $fields = [ map { join ':', $_, $hashref->{$_} } sort (keys %$hashref) ];
-    my $record = join("\t", @$fields) . "\n";
-    return $record;
-}
-
 ## 現在時刻を文字列で取得 ##
 sub now_datetime_as_string {
     #中身は自分で書き換えたのでBookmarkのとはちがう
@@ -75,32 +67,5 @@ sub now_datetime_as_string {
     my $string = sprintf "%4d%02d%02d%02d%02d%02d",$dt->year,$dt->month,$dt->day,$dt->hour,$dt->minute,$dt->second;
     return $string;
 }
-
-=head
-## ltsvファイルパース ##
-sub parse_ltsv {
-    my ($record) = @_;
-    my $fields = [ split "\t", $record ];
-    my $hashref = { map {
-        my ($label, $value) = split ':', $_, 2;
-        ($label => $value eq '-' ? undef : $value);
-    } @$fields };
-    return $hashref;
-}
-
-sub parse_diary_ltsv_file {
-    my ($filename) = @_;
-    my @parsed_record;
-    my @record = File::Slurp::read_file($filename); #1行ずつよみこむ
-
-    foreach (@record){
-    chomp($_);
-    my $hashref  = parse_ltsv($_);
-    push @parsed_record, $hashref;
-}
-    return @parsed_record; #ハッシュの配列を返す
-
-}
-=cut
 
 1;

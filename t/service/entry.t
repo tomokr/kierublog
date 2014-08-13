@@ -15,10 +15,16 @@ subtest 'create' => sub {
     my $title = 'はじめまして';
     my $text = 'こんにちはこんにちは';
     my $entry_1 = Intern::Diary::Service::Entry->create_entry($title, $text);
+    my $time = Intern::Diary::Service::Entry->now_datetime_as_string();
 
-    is $entry_1, 'diary_id:2014081220120000	diary_text:こんにちはこんにちは	diary_title:はじめまして';
+    is $entry_1->{diary_id} , $time;
+    is $entry_1->{diary_text}, 'こんにちはこんにちは';
+    is $entry_1->{diary_title}, 'はじめまして';
 
 };
 
+subtest 'edit' => sub{
+
+}
 
 done_testing;
