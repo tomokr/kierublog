@@ -4,7 +4,6 @@ use warnings;
 use utf8;
 use Data::Dumper;
 
-#以下、bookmark-file.plを参考にして書いてみる
 use FindBin; #ライブラリ探索用
 use lib "$FindBin::Bin/lib", glob "$FindBin::Bin/modules/*/lib";
 use Encode;
@@ -25,13 +24,12 @@ my %HANDLERS = (
     delete => \&delete_diary,
 );
 
-my $command = shift @ARGV ;# || 'list'; #これは何も入力しなかったらlist?
-
-my $handler = $HANDLERS{ $command }; #or pod2usage; #使い方を表示するらしい。使うにはPod::Usageが必要
-
-$handler->(@ARGV); #あまり挙動はよくわからないけどいれてみた
+my $command = shift @ARGV;
+my $handler = $HANDLERS{ $command };
+$handler->(@ARGV);
 
 sub add_diary{
+
     my ($title) = @_;
     die 'title required' unless defined $title; #タイトル必要
     #入力
@@ -45,18 +43,20 @@ sub add_diary{
     #ファイルにltsvにして書き込む
     my $diary_ltsv = Intern::Diary::Model::Parse->generate_ltsv_by_hashref($diary);
     File::Slurp::write_file("data.ltsv", {append => 1}, $diary_ltsv);
-#    print Dumper $diary_ltsv;
     print "OK\n";
 
 }
 
-sub list_diary{ #時間があればもっときれいにしたい
+sub list_diary{
+
       my $record = File::Slurp::read_file("data.ltsv");
       print $record;
+
 }
 
 
 sub edit_diary{
+
     my ($edit_id) = @_;
     die 'id required' unless defined $edit_id; #ID必要
     my $diary_ltsv = '';
@@ -79,10 +79,10 @@ sub edit_diary{
     File::Slurp::write_file("data.ltsv", $diary_ltsv); #最後に全部ファイルに書き出す
 
     print "This ID does not exist!\n" if $does_id_exist == 0; #存在しないIDを指定した場合
-    print "Edited\n" if $does_id_exist == 1;
+    print "Edited.\n" if $does_id_exist == 1;
 }
 
-sub delete_diary{ #シェルのコマンドからN行めを削除のほうがよさそうだけどとりあえず
+sub delete_diary{
     my ($delete_id) = @_;
     die 'id required' unless defined $delete_id; #ID必要
     my $does_id_exist = 0;

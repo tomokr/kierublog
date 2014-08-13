@@ -60,7 +60,6 @@ sub delete_entry{
 
 ## 現在時刻を文字列で取得 ##
 sub now_datetime_as_string {
-    #中身は自分で書き換えたのでBookmarkのとはちがう
     my $dt = DateTime->from_epoch(epoch => time);
     my $string = sprintf "%4d%02d%02d%02d%02d%02d",$dt->year,$dt->month,$dt->day,$dt->hour,$dt->minute,$dt->second;
     return $string;
