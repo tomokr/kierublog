@@ -64,6 +64,20 @@ sub find_entry_by_user_id_and_created {
     }, 'Intern::Diary::Model::Entry');
 }
 
+sub find_entry_by_id { #未テスト
+    my ($class, $db, $args) = @_;
+
+    my $id = $args->{id} // croak 'id required';
+
+    $db->dbh('intern_diary')->select_row_as(q[
+        SELECT * FROM entry
+          WHERE
+          id = :id
+    ], {
+        id => $id,
+    }, 'Intern::Diary::Model::Entry');
+}
+
 sub find_entries_by_user_id {
     my ($class, $db, $args) = @_;
 
@@ -73,14 +87,14 @@ sub find_entries_by_user_id {
         SELECT * FROM entry
           WHERE user_id = :user_id
     ], {
-        user_id => $user_id,
+        user_id => $user_id
     }, 'Intern::Diary::Model::Entry');
 };
 
 sub update_entry {
     my ($class, $db, $args) = @_;
 
-    my $entry_id = $args->{entry_id} // croak 'entry_id required';
+    my $id = $args->{id} // croak 'id required';
     my $title = $args->{title} // croak 'title required';
     my $text = $args->{text} // croak 'text required';
 
@@ -91,11 +105,11 @@ sub update_entry {
             text = :text,
             date = :date
           WHERE
-            id = :entry_id
+            id = :id
     ], {
-        entry_id => $entry_id,
-        title     => encode_utf8 $title,
-        text     => encode_utf8 $text,
+        id => $id,
+        title     => $title,#encode_utf8 $title,
+        text     => $text, #encode_utf8 $text,
         date     => Intern::Diary::Util->now,
     });
 }

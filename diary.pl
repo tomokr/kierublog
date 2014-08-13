@@ -66,35 +66,37 @@ sub list_diary{
 
 sub edit_diary{
 
-    my ($edit_id) = @_;
+    my ($class, $edit_id) = @_;
     die 'id required' unless defined $edit_id; #ID必要
-    my $diary_ltsv = '';
-    my $does_id_exist = 0;
-    my @parsed_record = Intern::Diary::Model::Parse->parse_diary_ltsv_file("data.ltsv");
-    my ($new_title, $diary_id, $entry, $new_text);
-    $new_title = '';
-    foreach (@parsed_record){ #空行があるとエラーがでる
-        next unless defined $_->{diary_id};
-        unless($_->{diary_id} eq $edit_id){#編集しようとしているidでなければ$diary_ltsvにくっつけていく
-            $diary_ltsv .= Intern::Diary::Model::Parse->generate_ltsv_by_hashref($_);
-            }else{
-                #消そうとしているところの処理
-             $entry = Intern::Diary::Service::Entry->edit_entry($_);
-             $diary_ltsv .= Intern::Diary::Model::Parse->generate_ltsv_by_hashref($entry);
-             $does_id_exist = 1;
-         }
-    }
+    #my $does_id_exist = 0; #もし指定したidがなかったら？
 
-    File::Slurp::write_file("data.ltsv", $diary_ltsv); #最後に全部ファイルに書き出す
+    my $edit_entry = Intern::Diary::Model::Entry->new(
+        id => $edit_id,
+        );
+    my $old_entry = Intern::Diary::Service::DB::Entry->find_entry_by_id($db, $edit_entry);
+    printf "old_title:%s\n",$old_entry->title;
+    print "new_title:";
+    my $new_title = <STDIN>;
+    chomp($new_title);
+     printf "old_text:%s\n",$old_entry->text;
+    print "new_text:";
+    my $new_text = <STDIN>;
+    chomp($new_text);
 
-    print "This ID does not exist!\n" if $does_id_exist == 0; #存在しないIDを指定した場合
-    print "Edited.\n" if $does_id_exist == 1;
+    $edit_entry->{title} = $new_title;
+    $edit_entry->{text} = $new_text;
+
+    Intern::Diary::Service::DB::Entry->update_entry($db, $edit_entry);
+
+    # print "This ID does not exist!\n" if $does_id_exist == 0; #存在しないIDを指定した場合
+    # print "Edited.\n" if $does_id_exist == 1;
+    print "Edited.\n";
 }
 
 sub delete_diary{
     my ($class, $delete_id) = @_;
     die 'id required' unless defined $delete_id; #ID必要
-    my $does_id_exist = 0;
+  #  my $does_id_exist = 0; #もし指定したidがなかったら？
     my $delete_entry = Intern::Diary::Model::Entry->new(
         id => $delete_id,
         );
@@ -104,17 +106,6 @@ sub delete_diary{
     # print "Deleted.\n" if $does_id_exist == 1;
     print "Deleted.\n";
 }
-
-## ハッシュからltsvへ ##
-sub generate_ltsv_by_hashref {
-    my ($hashref) = @_;
-    my $fields = [ map { join ':', $_, $hashref->{$_} } sort (keys %$hashref) ];
-    my $record = join("\t", @$fields) . "\n";
-    return $record;
-}
-
-
-
 
 __END__
 

@@ -90,11 +90,14 @@ subtest 'update_entry' => sub {
 
     my $db = Intern::Diary::DBI::Factory->new;
 
-    Intern::Diary::Service::DB::Entry->update_entry($db, {
-        entry_id => $entry->id,
+    my $edit_entry = Intern::Diary::Model::Entry->new(
+        id => $entry->id,
         title => 'Updated title',
         text => 'Updated text'
-    });
+        );
+
+
+    Intern::Diary::Service::DB::Entry->update_entry($db, $edit_entry);
 
     my $updated_entry = $db->dbh('intern_diary')->select_row(q[
         SELECT * FROM entry
