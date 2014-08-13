@@ -25,5 +25,12 @@ sub datetime_from_db ($) {
     $dt;
 }
 
+sub date_from_db ($) {
+    my $dt = DateTime::Format::MySQL->parse_date( shift );
+    $dt->set_time_zone(config->param('db_timezone'));
+    $dt->set_formatter( DateTime::Format::MySQL->new );
+    $dt;
+}
+
 1;
 __END__

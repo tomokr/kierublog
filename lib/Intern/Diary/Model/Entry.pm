@@ -8,8 +8,8 @@ use Encode;
 
 use Class::Accessor::Lite (
 	rw => [qw(
+		id
 		diary_title
-		diary_id
 		diary_text
 		user_id
 		created
