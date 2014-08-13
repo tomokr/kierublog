@@ -6,6 +6,7 @@ use utf8;
 use Encode;
 use DateTime;
 use Intern::Diary::Model::Entry;
+use Intern::Diary::Model::Parse;
 
 sub create_entry{
 	my ($class, $title, $diary_text) = @_;
@@ -17,55 +18,44 @@ sub create_entry{
 		diary_text => $diary_text,
 	);
 
-
 	return $entry;
 }
 
 sub edit_entry{
+
 	my ($class, $edit_id) = @_;
-	my $diary_ltsv;
-    my @parsed_record = parse_diary_ltsv_file("data.ltsv");
-    my $does_id_exist = 0;
     my ($new_title, $diary_id, $entry, $new_text);
-    $new_title = '';
-    foreach (@parsed_record){ #空行があるとエラーがでる
-        unless($_->{diary_id} eq $edit_id){#編集しようとしているidでなければ$diary_ltsvにくっつけていく
-            $diary_ltsv .= generate_ltsv_by_hashref($_);
-            }else{
-                $does_id_exist = 1;
-                print "title:";
-                $new_title = <STDIN>;
-                chomp($new_title);
-                printf "Old_text:%s\n",$_->{diary_text};
-                print "New_text:";
-                $new_text = <STDIN>;
-                chomp($new_text);
-                $diary_id = $_->{diary_id};
-                $entry = Intern::Diary::Model::Entry->new(
-                    diary_id => $diary_id,
-                    diary_title => $new_title,
+     $new_title = '';
+     print "title:";
+     $new_title = <STDIN>;
+     chomp($new_title);
+     printf "Old_text:%s\n",$_->{diary_text};
+     print "New_text:";
+     $new_text = <STDIN>;
+     chomp($new_text);
+     $diary_id = $_->{diary_id};
+     $entry = Intern::Diary::Model::Entry->new(
+        diary_id => $diary_id,
+        diary_title => $new_title,
                     diary_text => $new_text,#edit_text($_->{diary_id}),
-                );
-                 $diary_ltsv .= generate_ltsv_by_hashref($entry);
-            }
+                    );
+     return $entry;
     }
-
-    return ($diary_ltsv, $does_id_exist);
-
-}
 
 sub delete_entry{
 	my ($class, $d_id) = @_;
 	my $diary_ltsv;
-    my @parsed_record = parse_diary_ltsv_file("data.ltsv");
+    my @parsed_record = Intern::Diary::Model::Parse->parse_diary_ltsv_file("data.ltsv");
     my $does_id_exist = 0;
     foreach (@parsed_record){
         unless($_->{diary_id} eq $d_id){#消そうとしているidでなければ$diary_ltsvにくっつけていく
-            $diary_ltsv .= generate_ltsv_by_hashref($_);
+            $diary_ltsv .= Intern::Diary::Model::Parse->generate_ltsv_by_hashref($_);
             }else{
                 $does_id_exist = 1;
             }
     }
+
+    print $diary_ltsv;
 
     return ($diary_ltsv, $does_id_exist);
 }
@@ -86,6 +76,7 @@ sub now_datetime_as_string {
     return $string;
 }
 
+=head
 ## ltsvファイルパース ##
 sub parse_ltsv {
     my ($record) = @_;
@@ -110,5 +101,6 @@ sub parse_diary_ltsv_file {
     return @parsed_record; #ハッシュの配列を返す
 
 }
+=cut
 
 1;

@@ -9,11 +9,13 @@ use FindBin; #ライブラリ探索用
 use lib "$FindBin::Bin/lib", glob "$FindBin::Bin/modules/*/lib";
 use Encode;
 use File::Slurp; #ファイルの読み書き用
-use Intern::Diary::Model::Entry; #日記のひな形
-use Intern::Diary::Service::Entry;
 use DateTime;
 use File::Temp; #外部エディタで編集したファイルをよみこむ用
 use Path::Class; #上に同じ
+
+use Intern::Diary::Model::Entry; #日記のひな形
+use Intern::Diary::Service::Entry;
+use Intern::Diary::Model::Parse;
 
 
 my %HANDLERS = (
@@ -41,7 +43,7 @@ sub add_diary{
     my $diary = Intern::Diary::Service::Entry->create_entry($title,$text);
 
     #ファイルにltsvにして書き込む
-    my $diary_ltsv = generate_ltsv_by_hashref($diary);
+    my $diary_ltsv = Intern::Diary::Model::Parse->generate_ltsv_by_hashref($diary);
     File::Slurp::write_file("data.ltsv", {append => 1}, $diary_ltsv);
 #    print Dumper $diary_ltsv;
     print "OK\n";
@@ -59,8 +61,20 @@ sub edit_diary{
     die 'id required' unless defined $edit_id; #ID必要
     my $diary_ltsv = '';
     my $does_id_exist = 0;
-
-    ($diary_ltsv,$does_id_exist) = Intern::Diary::Service::Entry->edit_entry($edit_id);
+    my @parsed_record = Intern::Diary::Model::Parse->parse_diary_ltsv_file("data.ltsv");
+    my ($new_title, $diary_id, $entry, $new_text);
+    $new_title = '';
+    foreach (@parsed_record){ #空行があるとエラーがでる
+        next unless defined $_->{diary_id};
+        unless($_->{diary_id} eq $edit_id){#編集しようとしているidでなければ$diary_ltsvにくっつけていく
+            $diary_ltsv .= Intern::Diary::Model::Parse->generate_ltsv_by_hashref($_);
+            }else{
+             $entry = Intern::Diary::Service::Entry->edit_entry($edit_id);
+             $diary_ltsv .= Intern::Diary::Model::Parse->generate_ltsv_by_hashref($entry);
+             $does_id_exist = 1;
+         }
+    }
+#    ($diary_ltsv,$does_id_exist) = Intern::Diary::Service::Entry->edit_entry($edit_id);
     File::Slurp::write_file("data.ltsv", $diary_ltsv); #最後に全部ファイルに書き出す
 
     print "This ID does not exist!\n" if $does_id_exist == 0; #存在しないIDを指定した場合
