@@ -15,5 +15,6 @@ CREATE TABLE entry (
     `date` DATE NOT NULL DEFAULT '0000-00-00',
 
     PRIMARY KEY(id),
+    UNIQUE KEY(user_id, created),
     KEY (user_id, date, created)
 );
