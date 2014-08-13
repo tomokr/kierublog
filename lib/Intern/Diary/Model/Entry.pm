@@ -9,8 +9,8 @@ use Encode;
 use Class::Accessor::Lite (
 	rw => [qw(
 		id
-		diary_title
-		diary_text
+		title
+		text
 		user_id
 		created
 		date

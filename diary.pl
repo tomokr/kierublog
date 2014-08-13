@@ -48,16 +48,18 @@ sub add_diary{
     user_id => $user->id
     	);
 
-    #ファイルにltsvにして書き込む
+    #エントリをDBに書き込む
     Intern::Diary::Service::DB::Entry->create_entry($db, $entry);
     print "OK\n";
 
 }
 
 sub list_diary{
+      my $entries =  Intern::Diary::Service::DB::Entry->find_entries_by_user_id($db, $user);
+      foreach my $entry (@$entries){
+        printf "id:%s title:%s text:%s\n",$entry->id, $entry->title, $entry->text;
 
-      my $record = File::Slurp::read_file("data.ltsv");
-      print $record;
+      }
 
 }
 
@@ -90,16 +92,17 @@ sub edit_diary{
 }
 
 sub delete_diary{
-    my ($delete_id) = @_;
+    my ($class, $delete_id) = @_;
     die 'id required' unless defined $delete_id; #ID必要
     my $does_id_exist = 0;
-    my $diary_ltsv = '';
+    my $delete_entry = Intern::Diary::Model::Entry->new(
+        id => $delete_id,
+        );
+    Intern::Diary::Service::DB::Entry->delete_entry($db, $delete_entry);
 
-    ($diary_ltsv, $does_id_exist) = Intern::Diary::Service::Entry->delete_entry($delete_id);
-
-    File::Slurp::write_file("data.ltsv", $diary_ltsv); #最後に全部ファイルに書き出す
-    print "This ID does not exist!\n" if $does_id_exist == 0; #存在しないIDを指定した場合
-    print "Deleted.\n" if $does_id_exist == 1;
+    # print "This ID does not exist!\n" if $does_id_exist == 0; #存在しないIDを指定した場合
+    # print "Deleted.\n" if $does_id_exist == 1;
+    print "Deleted.\n";
 }
 
 ## ハッシュからltsvへ ##

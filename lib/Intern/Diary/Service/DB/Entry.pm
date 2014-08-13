@@ -67,7 +67,7 @@ sub find_entry_by_user_id_and_created {
 sub find_entries_by_user_id {
     my ($class, $db, $args) = @_;
 
-    my $user_id = $args->{user_id} // croak 'user_id required';
+    my $user_id = $args->{id} // croak 'user_id required';
 
     $db->dbh('intern_diary')->select_all_as(q[
         SELECT * FROM entry
