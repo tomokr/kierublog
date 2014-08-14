@@ -74,7 +74,7 @@ subtest 'find_entries_by_user_id' => sub {
     my $entry_1 = create_entry(user_id => $user->id);
     my $entry_2 = create_entry(user_id => $user->id);
 
-    my $entries = Intern::Diary::Service::DB::Entry->find_entries_by_user_id($db, $user);
+    my $entries = Intern::Diary::Service::DB::Entry->find_entries_by_user_id($db, $user->id);
 
     is scalar @$entries, 2;
     cmp_deeply [map { $_->user_id } @$entries], [$entry_1->user_id, $entry_2->user_id];

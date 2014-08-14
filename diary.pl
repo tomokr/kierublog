@@ -3,7 +3,6 @@ use strict;
 use warnings;
 use utf8;
 use Encode;
-use Data::Dumper;
 
 use FindBin; #ライブラリ探索用
 use lib "$FindBin::Bin/lib", glob "$FindBin::Bin/modules/*/lib";
@@ -56,7 +55,7 @@ sub add_diary{
 }
 
 sub list_diary{
-      my $entries =  Intern::Diary::Service::DB::Entry->find_entries_by_user_id($db, $user);
+      my $entries =  Intern::Diary::Service::DB::Entry->find_entries_by_user_id($db, $user->id);
       foreach my $entry (@$entries){
         my $title = decode_utf8 $entry->title;
         my $text = decode_utf8 $entry->text;
@@ -73,10 +72,9 @@ sub edit_diary{
     die 'id required' unless defined $edit_id; #ID必要
     #my $does_id_exist = 0; #もし指定したidがなかったら？
 
-    my $edit_entry = Intern::Diary::Model::Entry->new(
-        id => $edit_id,
-        );
-    my $old_entry = Intern::Diary::Service::DB::Entry->find_entry_by_id($db, $edit_entry);
+    my $old_entry = Intern::Diary::Service::DB::Entry->find_entry_by_id($db, $edit_id);
+
+    my $edit_entry->{id} = $edit_id;
 
     printf "old_title:%s\n", decode_utf8 ($old_entry->title);
     print "new_title:";

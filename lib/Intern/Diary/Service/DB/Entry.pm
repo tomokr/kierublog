@@ -64,10 +64,10 @@ sub find_entry_by_user_id_and_created {
     }, 'Intern::Diary::Model::Entry');
 }
 
-sub find_entry_by_id { #未テスト
+sub find_entry_by_id {#未テスト
     my ($class, $db, $args) = @_;
 
-    my $id = $args->{id} // croak 'id required';
+    my $id = $args // croak 'id required';
 
     $db->dbh('intern_diary')->select_row_as(q[
         SELECT * FROM entry
@@ -81,7 +81,7 @@ sub find_entry_by_id { #未テスト
 sub find_entries_by_user_id {
     my ($class, $db, $args) = @_;
 
-    my $user_id = $args->{id} // croak 'user_id required';
+    my $user_id = $args // croak 'user_id required';
 
     $db->dbh('intern_diary')->select_all_as(q[
         SELECT * FROM entry
