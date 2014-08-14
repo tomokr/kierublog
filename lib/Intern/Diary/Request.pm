@@ -3,6 +3,7 @@ package Intern::Diary::Request;
 use strict;
 use warnings;
 use utf8;
+use Encode;
 
 use parent 'Plack::Request';
 
@@ -17,6 +18,11 @@ sub parameters {
         my $path  = $self->route_parameters;
         Hash::MultiValue->new($path->flatten, $query->flatten, $body->flatten);
     };
+}
+
+sub string_param {
+    my ($self, $key) = @_;
+    return decode_utf8 $self->parameters->{$key};
 }
 
 sub route_parameters {

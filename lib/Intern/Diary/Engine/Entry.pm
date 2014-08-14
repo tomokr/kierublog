@@ -33,6 +33,30 @@ sub default {
     }else{
         return $c->res->redirect('/');
     }
+}
+
+sub add_get{
+    my ($class, $c) = @_;
+    $c->html('entry/add.html',);
+}
+
+sub add_post{
+    my ($class, $c) = @_;
+
+    #user=tomokの場合
+    my $user = Intern::Diary::Service::DB::User->find_user_by_name($c->db, {name=>'tomok',});
+
+        my $title = $c->req->string_param('title');
+        my $text = $c->req->string_param('text');
+
+        Intern::Diary::Service::DB::Entry->create_entry($c->db,
+        {
+            user_id => $user->id,
+            diary_title => $title,
+            diary_text => $text,
+        }
+            );
+    $c->res->redirect('/');
 
 }
 

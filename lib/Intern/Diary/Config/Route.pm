@@ -17,6 +17,15 @@ sub make_router {
         	engine => 'Entry',
         	action => 'default'
         };
+
+        connect '/entry/add' =>{
+        	engine => 'Entry',
+        	action => 'add_get'
+        	} => { method => 'GET'};
+        connect '/entry/add' =>{
+            engine => 'Entry',
+            action => 'add_post'
+        } => { method => 'POST' };
     };
 }
 

@@ -1,0 +1,25 @@
+[% WRAPPER "_wrapper.tt" WITH title = "Intern::Diary::Add" %]
+
+<form action="/entry/add" method="post">
+  <table>
+    <tr>
+      <th><label for="Title">Title</label></th>
+      <td>
+        <input type="text" id="title" name="title" class="text" value="[% entry ? entry.title : c.req.param('title') %]"/>
+      </td>
+    </tr>
+    <tr>
+      <th><label for="comment">Text</label></th>
+      <td>
+        <input type="text" id="text" name="text" class="text" value="[% entry ? entry.title : c.req.param('title') %]"/>
+      </td>
+    </tr>
+    <tr>
+      <td colspan="2" class="submit">
+        <input type="submit" value="作成"/>
+      </td>
+    </tr>
+  </table>
+</form>
+
+[% END %]
