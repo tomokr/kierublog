@@ -43,8 +43,8 @@ sub add_diary{
 
     #入力からエントリを作成
     my $entry = Intern::Diary::Model::Entry->new(
-    diary_title => encode_utf8 $title,
-    diary_text => encode_utf8 $text,
+    diary_title => $title,
+    diary_text => $text,
     user_id => $user->id
     	);
 
@@ -85,8 +85,8 @@ sub edit_diary{
     my $new_text = <STDIN>;
     chomp($new_text);
 
-    $edit_entry->{title} = encode_utf8 $new_title;
-    $edit_entry->{text} = encode_utf8 $new_text;
+    $edit_entry->{title} = $new_title;
+    $edit_entry->{text} = $new_text;
 
     Intern::Diary::Service::DB::Entry->update_entry($db, $edit_entry);
 

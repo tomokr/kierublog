@@ -71,7 +71,8 @@ subtest 'find_entries_by_user_id' => sub {
 	my $user = create_user;
     my $db = Intern::Diary::DBI::Factory->new;
 
-    my $entry_1 = create_entry(user_id => $user->id);
+    my $created_time = Intern::Diary::Util::now->add(seconds => 1);
+    my $entry_1 = create_entry(user_id => $user->id, created => $created_time);
     my $entry_2 = create_entry(user_id => $user->id);
 
     my $entries = Intern::Diary::Service::DB::Entry->find_entries_by_user_id($db, $user->id);

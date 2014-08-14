@@ -34,7 +34,7 @@ sub create_user {
 
 sub create_entry {
     my %args = @_;
-    my $user_id    = $args{user_id}    // create_user();
+    my $user_id    = $args{user_id}    // create_user()->id;
     my $diary_text = $args{diary_text} // random_regex('\w{50}');
     my $diary_title = $args{diary_title} // random_regex('\w{50}');
     my $created = $args{created} // Intern::Diary::Util::now;

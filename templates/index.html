@@ -2,4 +2,12 @@
 <div class=row>
   Intern-Diary
 </div>
+[% IF entries.size() %]
+    [% FOR entry IN entries %]
+    <p>[% entry.title %]</p>
+    [% END %]
+[% ELSE %]
+    <p>日記がまだありません</p>
+[% END %]
+
 [% END # WRAPPER %]
