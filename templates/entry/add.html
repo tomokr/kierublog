@@ -11,7 +11,7 @@
     <tr>
       <th><label for="comment">Text</label></th>
       <td>
-        <input type="text" id="text" name="text" class="text" value="[% entry ? entry.text : c.req.param('text') %]"/>
+        <textarea id="text" name="text"  class="text" >[% entry ? entry.text : c.req.param('text') %]</textarea>
       </td>
     </tr>
     <tr>
