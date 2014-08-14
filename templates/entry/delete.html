@@ -1,0 +1,27 @@
+[% WRAPPER "_wrapper.tt" WITH title = "Intern::Diary::Delete" %]
+
+<form action="" method="post">
+  <p>本当に削除しますか?</p>
+  <table>
+    <tr>
+      <th><label for="title">Title</label></th>
+      <td>
+        [% entry.title %]
+      </td>
+    </tr>
+    <tr>
+      <th><label for="text">Text</label></th>
+      <td>
+        [% entry.text %]
+      </td>
+    </tr>
+    <tr>
+      <td colspan="2" class="submit">
+        <input type="submit" value="削除"/>
+        <input type="hidden" name="id" value="[% entry.id %]"/>
+      </td>
+    </tr>
+  </table>
+</form>
+
+[% END %]

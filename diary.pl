@@ -99,10 +99,8 @@ sub delete_diary{
     my ($class, $delete_id) = @_;
     die 'id required' unless defined $delete_id; #ID必要
   #  my $does_id_exist = 0; #もし指定したidがなかったら？
-    my $delete_entry = Intern::Diary::Model::Entry->new(
-        id => $delete_id,
-        );
-    Intern::Diary::Service::DB::Entry->delete_entry($db, $delete_entry);
+
+    Intern::Diary::Service::DB::Entry->delete_entry($db, $delete_id);
 
     # print "This ID does not exist!\n" if $does_id_exist == 0; #存在しないIDを指定した場合
     # print "Deleted.\n" if $does_id_exist == 1;

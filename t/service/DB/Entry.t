@@ -52,7 +52,7 @@ subtest 'delete' => sub {
 
     my $db = Intern::Diary::DBI::Factory->new;
 
-    Intern::Diary::Service::DB::Entry->delete_entry($db, $entry);
+    Intern::Diary::Service::DB::Entry->delete_entry($db, $entry->id);
 
     my $deleted_entry = $db->dbh('intern_diary')->select_row(q[
         SELECT * FROM entry

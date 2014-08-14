@@ -89,6 +89,32 @@ sub edit_post{
         }
             );
     $c->res->redirect('/');
+}
+
+sub delete_get{
+    my ($class, $c) = @_;
+
+    my $id = $c->req->parameters->{id};
+
+    my $entry = Intern::Diary::Service::DB::Entry->find_entry_by_id($c->db, $id);
+    if($entry){
+        $c->html('entry/delete.html', {
+            entry    => $entry,
+            });
+    }else{
+        #そのエントリは存在しません
+        $c->res->redirect('/');
+    }
+}
+
+sub delete_post{
+    my ($class, $c) = @_;
+
+    my $id = $c->req->parameters->{id};
+
+    Intern::Diary::Service::DB::Entry->delete_entry($c->db, $id);
+
+    $c->res->redirect('/');
 
 }
 

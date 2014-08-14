@@ -36,14 +36,14 @@ sub create_entry {
 }
 
 sub delete_entry {
-    my ($class, $db, $entry) = @_;
+    my ($class, $db, $id) = @_;
 
     $db->dbh('intern_diary')->query(q[
         DELETE FROM entry
           WHERE
             id = :id
     ], {
-        id => $entry->id,
+        id => $id,
     });
 }
 
