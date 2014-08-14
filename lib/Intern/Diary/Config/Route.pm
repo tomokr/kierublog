@@ -12,6 +12,11 @@ sub make_router {
             engine => 'Index',
             action => 'default',
         };
+
+        connect '/entry' =>{
+        	engine => 'Entry',
+        	action => 'default'
+        };
     };
 }
 

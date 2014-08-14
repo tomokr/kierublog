@@ -11,7 +11,7 @@ sub default {
     my ($class, $c) = @_;
     $c->html('index.html');
 
-   	#user=tomokrの場合
+   	#user=tomokの場合
    	my $user = Intern::Diary::Service::DB::User->find_user_by_name($c->db, {name=>'tomok',});
 
    	#エントリ一覧を取得
@@ -20,7 +20,6 @@ sub default {
    	$c->html('index.html',{
    		entries => $entries,
    		})
-
 
 }
 

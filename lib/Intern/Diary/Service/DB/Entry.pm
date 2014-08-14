@@ -79,16 +79,29 @@ sub find_entry_by_id {#未テスト
 }
 
 sub find_entries_by_user_id {
-    my ($class, $db, $args) = @_;
+    my ($class, $db, $user_id, $args) = @_;
 
-    my $user_id = $args // croak 'user_id required';
+    croak 'user_id required' unless $user_id;
 
-    $db->dbh('intern_diary')->select_all_as(q[
-        SELECT * FROM entry
-          WHERE user_id = :user_id
-    ], {
-        user_id => $user_id
-    }, 'Intern::Diary::Model::Entry');
+    unless($args){
+        $db->dbh('intern_diary')->select_all_as(q[
+            SELECT * FROM entry
+            WHERE user_id = :user_id
+            ], {
+                user_id => $user_id
+                }, 'Intern::Diary::Model::Entry');
+        }else{
+            $db->dbh('intern_diary')->select_all_as(q[
+            SELECT * FROM entry
+            WHERE user_id = :user_id
+            LIMIT :limit
+            OFFSET :offset
+            ], {
+                user_id => $user_id,
+                limit => $args->{limit},
+                offset => $args->{offset}
+                }, 'Intern::Diary::Model::Entry');
+        }
 };
 
 sub update_entry {
