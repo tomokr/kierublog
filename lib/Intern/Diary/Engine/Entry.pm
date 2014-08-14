@@ -42,7 +42,6 @@ sub add_get{
 
 sub add_post{
     my ($class, $c) = @_;
-
     #user=tomokの場合
     my $user = Intern::Diary::Service::DB::User->find_user_by_name($c->db, {name=>'tomok',});
 
@@ -57,8 +56,40 @@ sub add_post{
         }
             );
     $c->res->redirect('/');
-
 }
 
+sub edit_get{
+    my ($class, $c) = @_;
+
+    my $id = $c->req->parameters->{id};
+
+    my $entry = Intern::Diary::Service::DB::Entry->find_entry_by_id($c->db, $id);
+    if($entry){
+        $c->html('entry/edit.html', {
+            entry    => $entry,
+            });
+    }else{
+        #そのエントリは存在しません
+        $c->res->redirect('/');
+    }
+}
+
+sub edit_post{
+        my ($class, $c) = @_;
+
+        my $id = $c->req->parameters->{id};
+        my $title = $c->req->string_param('title');
+        my $text = $c->req->string_param('text');
+
+        Intern::Diary::Service::DB::Entry->update_entry($c->db,
+        {
+            id => $id,
+            title => $title,
+            text => $text,
+        }
+            );
+    $c->res->redirect('/');
+
+}
 
 1;

@@ -1,6 +1,6 @@
-[% WRAPPER "_wrapper.tt" WITH title = "Intern::Diary::Add" %]
+[% WRAPPER "_wrapper.tt" WITH title = "Intern::Diary::Edit" %]
 
-<form action="/entry/add" method="post">
+<form action="/entry/edit" method="post">
   <table>
     <tr>
       <th><label for="Title">Title</label></th>
@@ -17,6 +17,7 @@
     <tr>
       <td colspan="2" class="submit">
         <input type="submit" value="作成"/>
+        <input type="hidden" name="id" value="[% entry.id %]"/>
       </td>
     </tr>
   </table>

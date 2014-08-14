@@ -5,6 +5,7 @@
 <br>
 [% IF entries.size() %]
     [% FOR entry IN entries %]
+    <p>[% entry.id %]</p>
     <p>[% entry.date %]</p>
     <h2>[% entry.title %]</h2>
     <p>[% entry.text %]</p>

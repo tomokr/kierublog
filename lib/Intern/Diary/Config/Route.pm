@@ -26,6 +26,15 @@ sub make_router {
             engine => 'Entry',
             action => 'add_post'
         } => { method => 'POST' };
+
+        connect '/entry/edit' =>{
+        	engine => 'Entry',
+        	action => 'edit_get'
+        	} => { method => 'GET'};
+        connect '/entry/edit' =>{
+        	engine => 'Entry',
+        	action => 'edit_post'
+        	} => { method => 'POST' };
     };
 }
 
