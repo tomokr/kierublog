@@ -3,6 +3,7 @@ package t::Intern::Diary::Model::Entry;
 use strict;
 use warnings;
 use utf8;
+use Encode;
 use lib 't/lib';
 
 use Test::More;
@@ -19,8 +20,8 @@ subtest '_accessor' => sub {
     my $now = '20140812201200';
     my $entry = Intern::Diary::Model::Entry->new(
         id => $now,
-        title    => 'はじめまして',
-        text  => 'こんにちはこんにちは',
+        title    => encode_utf8 'はじめまして',
+        text  => encode_utf8 'こんにちはこんにちは',
         user_id => 'doughnutomo',
         created => '2014-08-13 15:38:00',
         date => '2014-08-13'

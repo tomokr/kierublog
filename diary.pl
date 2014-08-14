@@ -2,6 +2,7 @@
 use strict;
 use warnings;
 use utf8;
+use Encode;
 use Data::Dumper;
 
 use FindBin; #ライブラリ探索用
@@ -43,8 +44,8 @@ sub add_diary{
 
     #入力からエントリを作成
     my $entry = Intern::Diary::Model::Entry->new(
-    diary_title => $title,
-    diary_text => $text,
+    diary_title => encode_utf8 $title,
+    diary_text => encode_utf8 $text,
     user_id => $user->id
     	);
 
@@ -57,7 +58,9 @@ sub add_diary{
 sub list_diary{
       my $entries =  Intern::Diary::Service::DB::Entry->find_entries_by_user_id($db, $user);
       foreach my $entry (@$entries){
-        printf "id:%s title:%s text:%s\n",$entry->id, $entry->title, $entry->text;
+        my $title = decode_utf8 $entry->title;
+        my $text = decode_utf8 $entry->text;
+        printf "id:%s title:%s text:%s\n",$entry->id, $title, $text;
 
       }
 
@@ -83,8 +86,8 @@ sub edit_diary{
     my $new_text = <STDIN>;
     chomp($new_text);
 
-    $edit_entry->{title} = $new_title;
-    $edit_entry->{text} = $new_text;
+    $edit_entry->{title} = encode_utf8 $new_title;
+    $edit_entry->{text} = encode_utf8 $new_text;
 
     Intern::Diary::Service::DB::Entry->update_entry($db, $edit_entry);
 

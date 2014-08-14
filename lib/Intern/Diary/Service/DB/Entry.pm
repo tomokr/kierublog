@@ -108,8 +108,8 @@ sub update_entry {
             id = :id
     ], {
         id => $id,
-        title     => $title,#encode_utf8 $title,
-        text     => $text, #encode_utf8 $text,
+        title     => encode_utf8 $title,
+        text     => encode_utf8 $text,
         date     => Intern::Diary::Util->now,
     });
 }

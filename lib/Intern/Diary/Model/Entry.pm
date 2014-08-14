@@ -9,8 +9,6 @@ use Encode;
 use Class::Accessor::Lite (
 	rw => [qw(
 		id
-		title
-		text
 		user_id
 		created
 		date
@@ -18,12 +16,14 @@ use Class::Accessor::Lite (
 	new => 1,
 );
 
-=head
-#いらない?N
 sub title {
 	my ($self) = @_;
-	decode_utf8 $self->{title} || ''; #デコードの意味？
+	decode_utf8 $self->{title} || '';
 }
-=cut
+
+sub text {
+	my ($self) = @_;
+	decode_utf8 $self->{text} || '';
+}
 
 1;
