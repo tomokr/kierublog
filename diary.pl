@@ -42,11 +42,11 @@ sub add_diary{
     chomp($text);
 
     #入力からエントリを作成
-    my $entry = Intern::Diary::Model::Entry->new(
-    diary_title => $title,
-    diary_text => $text,
-    user_id => $user->id
-    	);
+    my $entry = {
+        diary_title => decode_utf8($title),
+        diary_text => decode_utf8($text),
+        user_id => $user->id
+    };
 
     #エントリをDBに書き込む
     Intern::Diary::Service::DB::Entry->create_entry($db, $entry);
@@ -57,8 +57,8 @@ sub add_diary{
 sub list_diary{
       my $entries =  Intern::Diary::Service::DB::Entry->find_entries_by_user_id($db, $user->id);
       foreach my $entry (@$entries){
-        my $title = decode_utf8 $entry->title;
-        my $text = decode_utf8 $entry->text;
+        my $title = encode_utf8 $entry->title;
+        my $text = encode_utf8 $entry->text;
         printf "id:%s title:%s text:%s\n",$entry->id, $title, $text;
 
       }
