@@ -77,11 +77,12 @@ sub edit_diary{
         id => $edit_id,
         );
     my $old_entry = Intern::Diary::Service::DB::Entry->find_entry_by_id($db, $edit_entry);
-    printf "old_title:%s\n",$old_entry->title;
+
+    printf "old_title:%s\n", decode_utf8 ($old_entry->title);
     print "new_title:";
     my $new_title = <STDIN>;
     chomp($new_title);
-     printf "old_text:%s\n",$old_entry->text;
+     printf "old_text:%s\n",decode_utf8 ($old_entry->text);
     print "new_text:";
     my $new_text = <STDIN>;
     chomp($new_text);
