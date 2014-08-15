@@ -41,7 +41,7 @@ sub make_router {
         	action => 'edit_post'
         	} => { method => 'POST' };
 
-    connect '/entry/delete' =>{
+        connect '/entry/delete' =>{
         	engine => 'Entry',
         	action => 'delete_get'
         	} => { method => 'GET'};
@@ -49,7 +49,19 @@ sub make_router {
         	engine => 'Entry',
         	action => 'delete_post'
         	} => { method => 'POST' };
+
+        #API
+        connect '/api/entries' =>{
+            engine => 'API',
+            action => 'entries'
         };
+        # connect '/entry/delete' =>{
+        #     engine => 'Entry',
+        #     action => 'delete_post'
+        #     } => { method => 'POST' };
+        # };
+    };
+
 
 }
 
