@@ -14,7 +14,7 @@ function updateContent() {
         titleElem.textContent = e.title;
         // 本文
         var textElem = itemElem.appendChild(document.createElement("div"));
-        textElem.textContent = e.text;
+        textElem.innerHTML = (e.text).replace(/\r\n/g,"<br>");
 
         return itemElem;
     }
