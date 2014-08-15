@@ -18,6 +18,11 @@ sub make_router {
         	action => 'default'
         };
 
+        connect '/entry/list' =>{
+            engine => 'Entry',
+            action => 'list'
+        };
+
         connect '/entry/add' =>{
         	engine => 'Entry',
         	action => 'add_get'

@@ -12,6 +12,24 @@ use Intern::Diary::Service::DB::Entry;
 sub default {
     my ($class, $c) = @_;
 
+    ## 個別記事  ##
+    my $id = $c->req->parameters->{id};
+
+    my $entry = Intern::Diary::Service::DB::Entry->find_entry_by_id($c->db, $id);
+
+    if($entry){
+
+    $c->html('every_entry.html', {
+        entry     => $entry,
+    });
+    }else{
+        return $c->res->redirect('/');
+    }
+
+}
+
+sub list{
+    my ($class, $c) = @_;
     #urlからパラメーターを取得
     my $page = $c->req->parameters->{page};
 

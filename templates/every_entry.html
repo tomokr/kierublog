@@ -1,13 +1,11 @@
 [% WRAPPER '_wrapper.tt' %]
 <div class=row>
   Intern-Diary
-  <a href="../">リストに戻る</a>
+  <a href="./">リストに戻る</a>
     <a href="./entry/add">記事を書く</a>
   <h2>Entry</h2>
 </div>
 <br>
-[% IF entries.size() %]
-    [% FOR entry IN entries %]
     <a href="">前へ</a>
     <a href="">次へ</a><br>
     今は上のボタンつかえません。手動ページャ。
@@ -17,9 +15,5 @@
     <a href="entry/edit?id=[% entry.id %]">このエントリを編集</a>
     <a href="entry/delete?id=[% entry.id %]">このエントリを削除</a><br>
     <br>
-    [% END %]
-[% ELSE %]
-    <p>日記がまだありません</p>
-[% END %]
 
 [% END # WRAPPER %]

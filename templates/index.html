@@ -1,18 +1,20 @@
 [% WRAPPER '_wrapper.tt' %]
 <div class=row>
   Intern-Diary
-  <a href="./entry?page=1">個別記事</a>
-  <a href="./entry/add">記事を書く</a>
-  <h2>Entry list</h2>
+  <a href="./entry/list?page=1">個別記事</a>
+  <a href="./entry/add">記事を書く</a><br>
+  記事の編集/削除は記事の個別ページ(ページャ実装した)で可能です。
 </div>
+  <h2>Entry list</h2>
+  タイトルをクリックすると記事がみられます。
 <br>
 [% IF entries.size() %]
 <ul>
     [% FOR entry IN entries %]
     <li>
-    [% entry.date %] [% entry.title %]
+    [% entry.date %]
+    <a href="entry?id=[% entry.id %]">[% entry.title %]</a>
     <div id="text">[% entry.text %]</div>
-    <div id="entry_id">[% entry.id %]</div>
     <br>
    </li>
     [% END %]

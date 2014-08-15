@@ -1,5 +1,8 @@
 [% WRAPPER "_wrapper.tt" WITH title = "Intern::Diary::Edit" %]
-
+  Intern-Diary
+    <a href="./entry?page=1">個別記事</a>
+  <a href="./entry/add">記事を書く</a>
+<h2>Edit diary</h2>
 <form action="/entry/edit" method="post">
   <table>
     <tr>
