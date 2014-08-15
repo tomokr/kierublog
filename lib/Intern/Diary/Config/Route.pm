@@ -55,12 +55,13 @@ sub make_router {
             engine => 'API',
             action => 'entries'
         };
-        # connect '/entry/delete' =>{
-        #     engine => 'Entry',
-        #     action => 'delete_post'
-        #     } => { method => 'POST' };
-        # };
-    };
+
+        connect '/entry_js' =>{
+            engine => 'EntryJS',
+            action => 'default'
+        };
+
+    };#return文おわり
 
 
 }

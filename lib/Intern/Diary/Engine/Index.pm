@@ -9,7 +9,6 @@ use Intern::Diary::Service::DB::Entry;
 
 sub default {
     my ($class, $c) = @_;
-    $c->html('index.html');
 
    	#user=tomokの場合
    	my $user = Intern::Diary::Service::DB::User->find_user_by_name($c->db, {name=>'tomok',});
@@ -19,7 +18,7 @@ sub default {
 
    	$c->html('index.html',{
    		entries => $entries,
-   		})
+   		});
 
 }
 
