@@ -23,7 +23,7 @@ sub default {
         entry     => $entry,
     });
     }else{
-        return $c->res->redirect('/');
+        return $c->error('404','404 Not Found. No entry.');
     }
 
 }
