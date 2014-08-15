@@ -63,7 +63,6 @@ sub make_router {
 
     };#return文おわり
 
-
 }
 
 1;

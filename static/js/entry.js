@@ -42,9 +42,12 @@ function updateContent(page, per_page) {
 　　　function createLinks(){
         var linksDivElem = document.createElement("div");
         var prevLinksElem = linksDivElem.appendChild(document.createElement("a"));
+
+        if(nowpage>1){
         prevLinksElem.href = "javascript:void(0);";
         prevLinksElem.onclick = function () {updateContent((nowpage-1),per_page)};
         prevLinksElem.innerHTML = "<前へ";
+        }
 
         var nextLinksElem = linksDivElem.appendChild(document.createElement("a"));
         nextLinksElem.href = "javascript:void(0);";
