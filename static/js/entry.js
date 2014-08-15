@@ -41,11 +41,16 @@ function updateContent(page, per_page) {
  //   記事ページを動かすためのボタン
 　　　function createLinks(){
         var linksDivElem = document.createElement("div");
-        var linksElem = linksDivElem.appendChild(document.createElement("a"));
-        linksElem.href = "javascript:void(0);";
-        linksElem.onclick = function () {updateContent((nowpage+1),per_page)};
-        linksElem.innerHTML = "次へ";
-        var linksElem
+        var prevLinksElem = linksDivElem.appendChild(document.createElement("a"));
+        prevLinksElem.href = "javascript:void(0);";
+        prevLinksElem.onclick = function () {updateContent((nowpage-1),per_page)};
+        prevLinksElem.innerHTML = "<前へ";
+
+        var nextLinksElem = linksDivElem.appendChild(document.createElement("a"));
+        nextLinksElem.href = "javascript:void(0);";
+        nextLinksElem.onclick = function () {updateContent((nowpage+1),per_page)};
+        nextLinksElem.innerHTML = "次へ>";
+
         return linksDivElem;
  　　　}
 
