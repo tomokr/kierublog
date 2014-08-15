@@ -1,13 +1,22 @@
 [% WRAPPER '_wrapper.tt' %]
 <div class=row>
-  Intern-Diaryへようこそ！
+  Intern-Diary
+  <a href="./">リストに戻る</a>
+    <a href="./entry/add">記事を書く</a>
+  <h2>Entry</h2>
 </div>
 <br>
 [% IF entries.size() %]
     [% FOR entry IN entries %]
+    <a href="">前へ</a>
+    <a href="">次へ</a><br>
+    今は上のボタンつかえません。手動ページャ。
     <p>[% entry.date %]</p>
-    <h2>[% entry.title %]</h2>
-    <p>[% entry.text %]</p>
+    <h3>[% entry.title %]</h3>
+    <p>[% entry.text | html_line_break %]</p>
+    <a href="">このエントリを編集</a>
+    <a href="">このエントリを削除</a><br>
+    今は上のボタンつかえません。
     <br>
     [% END %]
 [% ELSE %]

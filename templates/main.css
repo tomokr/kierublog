@@ -1,0 +1,28 @@
+p {
+color: #000000;
+background-color: #F3D1E5;
+}
+
+h3{
+	position:relative;
+	padding-left:30px;
+	border-bottom:2px solid #ccc;
+	font-weight: bold;
+	font-size: 22px;
+	line-height: 38px;
+}
+
+h3:before{
+	content:'';
+	border-radius:30px;
+	-webkit-border-radius:30px;
+	-moz-border-radius:30px;
+	height:12px;
+	width:12px;
+	display:block;
+	position:absolute;
+	top:13px;
+	left:5px;
+	background-color:#00A8FF;
+	box-shadow: 0 0 2px 2px rgba(255,255,255,0.2) inset
+}

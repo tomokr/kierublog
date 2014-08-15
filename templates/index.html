@@ -1,16 +1,22 @@
 [% WRAPPER '_wrapper.tt' %]
 <div class=row>
-  Intern-Diaryへようこそ！
+  Intern-Diary
+  <a href="./entry?page=1">個別記事</a>
+  <a href="./entry/add">記事を書く</a>
+  <h2>Entry list</h2>
 </div>
 <br>
 [% IF entries.size() %]
+<ul>
     [% FOR entry IN entries %]
-    <p>[% entry.id %]</p>
-    <p>[% entry.date %]</p>
-    <h2>[% entry.title %]</h2>
-    <p>[% entry.text | html_line_break %]</p>
+    <li>
+    [% entry.date %] [% entry.title %]
+    <div id="text">[% entry.text %]</div>
+    <div id="entry_id">[% entry.id %]</div>
     <br>
+   </li>
     [% END %]
+</ul>
 [% ELSE %]
     <p>日記がまだありません</p>
 [% END %]

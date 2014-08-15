@@ -87,6 +87,7 @@ sub find_entries_by_user_id {
         $db->dbh('intern_diary')->select_all_as(q[
             SELECT * FROM entry
             WHERE user_id = :user_id
+            ORDER BY id DESC
             ], {
                 user_id => $user_id
                 }, 'Intern::Diary::Model::Entry');
@@ -94,6 +95,7 @@ sub find_entries_by_user_id {
             $db->dbh('intern_diary')->select_all_as(q[
             SELECT * FROM entry
             WHERE user_id = :user_id
+            ORDER BY id DESC
             LIMIT :limit
             OFFSET :offset
             ], {
