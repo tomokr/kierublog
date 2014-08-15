@@ -25,7 +25,7 @@ function updateContent(page, per_page) {
 
          var linkElem = itemElem.appendChild(document.createElement("a"));
          linkElem.href = "./entry?id="+e.id;
-        linkElem.innerHTML = "この記事を編集/削除する";
+         linkElem.innerHTML = "この記事を編集/削除する";
 
         return itemElem;
     }
