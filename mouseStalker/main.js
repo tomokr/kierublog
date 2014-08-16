@@ -37,7 +37,6 @@ function animateImg(){
 			clearInterval(intervalID);
 			return;
 		}
-		console.log("a");
 		time++;
 		top += time*g;
 		imgDivElem.style.top = top+"px";
