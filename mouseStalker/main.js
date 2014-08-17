@@ -35,6 +35,7 @@ function animateImg(){
 	var intervalID = setInterval(function (){
 		if(top > window_height-146){
 			clearInterval(intervalID);
+			imgDivElem.style.top = window_height-146+"px";
 			return;
 		}
 		time++;

@@ -76,11 +76,11 @@ sub edit_diary{
 
     my $edit_entry->{id} = $edit_id;
 
-    printf "old_title:%s\n", decode_utf8 ($old_entry->title);
+    printf "old_title:%s\n", $old_entry->title;
     print "new_title:";
     my $new_title = <STDIN>;
     chomp($new_title);
-     printf "old_text:%s\n",decode_utf8 ($old_entry->text);
+     printf "old_text:%s\n",$old_entry->text;
     print "new_text:";
     my $new_text = <STDIN>;
     chomp($new_text);
