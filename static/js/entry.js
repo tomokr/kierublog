@@ -17,6 +17,13 @@ function updateContent(page, per_page) {
         // タイトル
         var titleElem = itemElem.appendChild(document.createElement("h3"));
         titleElem.textContent = e.title;
+
+        //日付
+        var dateElem = itemElem.appendChild(document.createElement("div"));
+        dateElem.className = "date";
+        dateElem.textContent = e.date;
+
+
         // 本文
         var textElem = itemElem.appendChild(document.createElement("div"));
         textElem.innerHTML = (e.text).replace(/\r\n/g,"<br>");
@@ -78,11 +85,9 @@ function updateContent(page, per_page) {
 
 }//updateContentおわり
 
-    function test () {
-        alert("hello");
-    }
 
 // ページ読み込み時の初期化処理
+//初期設定ではページ1、ページごとの記事数3
 document.addEventListener("DOMContentLoaded", function (evt) {
     updateContent(1,3);
 }, false);

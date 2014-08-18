@@ -35,6 +35,29 @@ sub create_entry {
     });
 }
 
+sub update_entry {
+    my ($class, $db, $args) = @_;
+
+    my $id = $args->{id} // croak 'id required';
+    my $title = $args->{title} // croak 'title required';
+    my $text = $args->{text} // croak 'text required';
+
+    $db->dbh('intern_diary')->query(q[
+        UPDATE entry
+          SET
+            title = :title,
+            text = :text,
+            date = :date
+          WHERE
+            id = :id
+    ], {
+        id => $id,
+        title     => encode_utf8 $title,
+        text     => encode_utf8 $text,
+        date     => Intern::Diary::Util->now,
+    });
+}
+
 sub delete_entry {
     my ($class, $db, $id) = @_;
 
@@ -58,6 +81,7 @@ sub find_entry_by_user_id_and_created {
           WHERE
           user_id = :user_id AND
           created = :created
+          LIMIT 1
     ], {
         user_id => $user_id,
         created => $created,
@@ -73,6 +97,7 @@ sub find_entry_by_id {#未テスト
         SELECT * FROM entry
           WHERE
           id = :id
+          LIMIT 1
     ], {
         id => $id,
     }, 'Intern::Diary::Model::Entry');
@@ -106,29 +131,18 @@ sub find_entries_by_user_id {
         }
 };
 
-sub update_entry {
-    my ($class, $db, $args) = @_;
+# sub get_count_of_entries_by_user_id{
+#     my ($class, $db, $user_id) = @_;
+#     $db->dbh('intern_diary')->select_one(q[
+#             SELECT * COUNT(*)
+#             FROM entry
+#             WHERE user_id = :user_id
+#             ORDER BY id DESC
+#             ], {
+#                 user_id => $user_id
+#                 }, 'Intern::Diary::Model::Entry');
 
-    my $id = $args->{id} // croak 'id required';
-    my $title = $args->{title} // croak 'title required';
-    my $text = $args->{text} // croak 'text required';
-
-    $db->dbh('intern_diary')->query(q[
-        UPDATE entry
-          SET
-            title = :title,
-            text = :text,
-            date = :date
-          WHERE
-            id = :id
-    ], {
-        id => $id,
-        title     => encode_utf8 $title,
-        text     => encode_utf8 $text,
-        date     => Intern::Diary::Util->now,
-    });
-}
-
+# }
 
 
 1;
