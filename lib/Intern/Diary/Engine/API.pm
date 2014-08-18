@@ -52,7 +52,34 @@ sub add{
             diary_text => $text,
         }
             );
-        #$c->res->
+
+        $c->json({
+            title => $title,
+            text => $text,
+            })
+
+}
+
+sub edit{
+    my ($class, $c) = @_;
+
+        my $id = $c->req->parameters->{id};
+        my $title = $c->req->string_param('title');
+        my $text = $c->req->string_param('text');
+
+        Intern::Diary::Service::DB::Entry->update_entry($c->db,
+        {
+            id => $id,
+            title => $title,
+            text => $text,
+        }
+            );
+
+        $c->json({
+            id => $id,
+            title => $title,
+            text => $text,
+            })
 
 }
 
