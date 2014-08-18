@@ -56,6 +56,11 @@ sub make_router {
             action => 'entries'
         };
 
+        connect '/api/add' =>{
+            engine => 'API',
+            action => 'add'
+        };
+
         connect '/entry_js' =>{
             engine => 'EntryJS',
             action => 'default'

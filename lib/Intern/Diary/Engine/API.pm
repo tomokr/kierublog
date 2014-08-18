@@ -12,7 +12,6 @@ use Intern::Diary::Service::DB::Entry;
 
 sub entries{
     my ($class, $c) = @_;
-    warn "entries";
     my $entries;
 
     my $per_page = $c->req->parameters->{per_page};
@@ -35,6 +34,25 @@ sub entries{
     	per_page => JSON::Types::number $per_page,
     	next_page => JSON::Types::number $page + 1,
     	});
+
+}
+
+sub add{
+    my ($class, $c) = @_;
+        #user=tomokの場合
+        my $user = Intern::Diary::Service::DB::User->find_user_by_name($c->db, {name=>'tomok',});
+
+        my $title = $c->req->string_param('title');
+        my $text = $c->req->string_param('text');
+
+        Intern::Diary::Service::DB::Entry->create_entry($c->db,
+        {
+            user_id => $user->id,
+            diary_title => $title,
+            diary_text => $text,
+        }
+            );
+        #$c->res->
 
 }
 
