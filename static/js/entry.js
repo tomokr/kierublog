@@ -12,6 +12,7 @@ function updateContent(page, per_page) {
     contentElem.innerHTML = "";
 
     function createEntryItemElem(e) {
+
         var itemElem = document.createElement("div");
         itemElem.className = "entry";
         // タイトル
@@ -22,7 +23,6 @@ function updateContent(page, per_page) {
         var dateElem = itemElem.appendChild(document.createElement("div"));
         dateElem.className = "date";
         dateElem.textContent = e.date;
-
 
         // 本文
         var textElem = itemElem.appendChild(document.createElement("div"));
@@ -46,7 +46,7 @@ function updateContent(page, per_page) {
     }
 
  //   記事ページを動かすためのボタン
-　　　function createLinks(){
+　　　function createLinks(number_of_entry){
         var linksDivElem = document.createElement("div");
         var prevLinksElem = linksDivElem.appendChild(document.createElement("a"));
 
@@ -56,10 +56,13 @@ function updateContent(page, per_page) {
         prevLinksElem.innerHTML = "<前へ";
         }
 
+        if(number_of_entry>2){ //いまは1ページの記事数3なので
         var nextLinksElem = linksDivElem.appendChild(document.createElement("a"));
         nextLinksElem.href = "javascript:void(0);";
         nextLinksElem.onclick = function () {updateContent((nowpage+1),per_page)};
         nextLinksElem.innerHTML = "次へ>";
+    }
+
 
         return linksDivElem;
  　　　}
@@ -71,11 +74,14 @@ function updateContent(page, per_page) {
         var xhr = evt.currentTarget;
         if (xhr.status === 200) {
             var entriesInfo = JSON.parse(xhr.responseText);
+            var number_of_entry = 0;
             entriesInfo.entries.forEach(function (e) {
                 contentElem.appendChild(createEntryItemElem(e));
+                number_of_entry++;
             }
             );
-            contentElem.appendChild(createLinks());
+            console.log(number_of_entry);
+            contentElem.appendChild(createLinks(number_of_entry));
         } else {
             showError();
         }
