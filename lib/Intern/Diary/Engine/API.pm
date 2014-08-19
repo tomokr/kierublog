@@ -80,7 +80,18 @@ sub edit{
             title => $title,
             text => $text,
             })
+}
 
+sub delete{
+    my ($class, $c) = @_;
+
+    my $id = $c->req->parameters->{id};
+
+    Intern::Diary::Service::DB::Entry->delete_entry($c->db, $id);
+
+    $c->json({
+            id => $id,
+            })
 }
 
 1;

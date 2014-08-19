@@ -66,6 +66,11 @@ sub make_router {
             action => 'edit'
         };
 
+        connect '/api/delete' =>{
+            engine => 'API',
+            action => 'delete'
+        };
+
 
         connect '/entry_js' =>{
             engine => 'EntryJS',
