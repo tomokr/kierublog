@@ -76,17 +76,17 @@ sub edit_diary{
 
     my $edit_entry->{id} = $edit_id;
 
-    printf "old_title:%s\n", $old_entry->title;
+    printf "old_title:%s\n", encode_utf8($old_entry->title);
     print "new_title:";
     my $new_title = <STDIN>;
     chomp($new_title);
-     printf "old_text:%s\n",$old_entry->text;
+     printf "old_text:%s\n",encode_utf8($old_entry->text);
     print "new_text:";
     my $new_text = <STDIN>;
     chomp($new_text);
 
-    $edit_entry->{title} = $new_title;
-    $edit_entry->{text} = $new_text;
+    $edit_entry->{title} = decode_utf8($new_title);
+    $edit_entry->{text} = decode_utf8($new_text);
 
     Intern::Diary::Service::DB::Entry->update_entry($db, $edit_entry);
 
